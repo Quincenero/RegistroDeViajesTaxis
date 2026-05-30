@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
   
-  <!-- ========== CONFIGURACIÓN PARA INSTALACIÓN EN ANDROID ========== -->
+  <!-- PWA / INSTALACIÓN -->
   <meta name="theme-color" content="#1f5e7e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,13 +12,10 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="application-name" content="Taxi Control Pro">
   
-  <!-- ÍCONOS para la pantalla de inicio (emojis como fallback, pero mejor con imágenes inline) -->
   <link rel="apple-touch-icon" sizes="192x192" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231f5e7e'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white'%3E🚕%3C/text%3E%3C/svg%3E">
   <link rel="icon" type="image/png" sizes="192x192" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231f5e7e'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white'%3E🚕%3C/text%3E%3C/svg%3E">
   <link rel="icon" type="image/png" sizes="512x512" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231f5e7e'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white'%3E🚕%3C/text%3E%3C/svg%3E">
-  
-  <!-- Manifest para instalación -->
-  <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Taxi%20Control%20Pro%22,%22short_name%22:%22TaxiPro%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22theme_color%22:%22%231f5e7e%22,%22background_color%22:%22%23eef2f7%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231f5e7e'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white'%3E🚕%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22}]}">
+  <link rel="manifest" href="manifest.json">
   
   <title>Taxi Control Pro</title>
   
@@ -285,8 +282,8 @@
         <input type="date" id="fechaViaje">
       </div>
       <div class="campo">
-        <label>📍 Origen</label>
-        <input type="text" id="origen" placeholder="Ej: Centro">
+        <label>📍 Origen/Destino</label>
+        <input type="text" id="origen" placeholder="Ej: Centro/Belgrano">
       </div>
       <div class="campo">
         <label>💰 Monto ($)</label>
@@ -303,7 +300,7 @@
         <div style="margin-top:8px;">
           <input type="date" id="fechaGNC" style="width:100%; padding:10px; margin-bottom:8px; border-radius:14px; border:1px solid #ccc;">
           <input type="number" id="montoGNC" step="0.01" placeholder="Importe ($)" style="width:100%; padding:10px; margin-bottom:8px; border-radius:14px; border:1px solid #ccc;">
-          <input type="text" id="notaGNC" placeholder="Nota" style="width:100%; padding:10px; border-radius:14px; border:1px solid #ccc;">
+          <input type="text" id="notaGNC" placeholder="1era. carga" style="width:100%; padding:10px; border-radius:14px; border:1px solid #ccc;">
         </div>
         <button id="btnAgregarGNC" style="background:#3a7b4a; width:100%; margin-top:8px;">➕ GNC</button>
       </div>
@@ -313,7 +310,7 @@
         <div style="margin-top:8px;">
           <input type="date" id="fechaNafta" style="width:100%; padding:10px; margin-bottom:8px; border-radius:14px; border:1px solid #ccc;">
           <input type="number" id="montoNafta" step="0.01" placeholder="Importe ($)" style="width:100%; padding:10px; margin-bottom:8px; border-radius:14px; border:1px solid #ccc;">
-          <input type="text" id="notaNafta" placeholder="Nota" style="width:100%; padding:10px; border-radius:14px; border:1px solid #ccc;">
+          <input type="text" id="notaNafta" placeholder="Nafta super, Estacion YPF" style="width:100%; padding:10px; border-radius:14px; border:1px solid #ccc;">
         </div>
         <button id="btnAgregarNafta" style="background:#b8682e; width:100%; margin-top:8px;">➕ Nafta</button>
       </div>
@@ -343,24 +340,30 @@
     <div class="tabla-wrapper">
       <table id="tablaViajes">
         <thead><tr><th>Fecha</th><th>Origen</th><th>Monto</th><th></th></tr></thead>
-        <tbody id="cuerpoViajes"><tr><td colspan="4">Sin viajes</td></tr></tbody>
-      ~
+        <tbody id="cuerpoViajes">
+            <tr><td colspan="4">Sin viajes</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <h2>🟢 GNC</h2>
     <div class="tabla-wrapper">
       <table id="tablaGNC">
         <thead><tr><th>Fecha</th><th>Importe</th><th>Nota</th><th></th></tr></thead>
-        <tbody id="cuerpoGNC"><tr><td colspan="4">Sin GNC</td></tr></tbody>
-      ~
+        <tbody id="cuerpoGNC">
+            <tr><td colspan="4">Sin GNC</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <h2>⛽ NAFTA</h2>
     <div class="tabla-wrapper">
       <table id="tablaNafta">
         <thead><tr><th>Fecha</th><th>Importe</th><th>Nota</th><th></th></tr></thead>
-        <tbody id="cuerpoNafta"><tr><td colspan="4">Sin NAFTA</td></tr></tbody>
-      ~
+        <tbody id="cuerpoNafta">
+            <tr><td colspan="4">Sin NAFTA</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -371,6 +374,12 @@
       <strong>📌 Resumen de HOY:</strong><br>
       <span id="resumenHoy">-</span>
     </div>
+  </div>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+    <button id="btnExportarCSV">📤 Exportar CSV</button>
+    <button id="btnImportarCSV">📥 Importar CSV</button>
+    <input type="file" id="archivoCSV" accept=".csv" style="display:none;">
   </div>
   
   <footer>
@@ -390,7 +399,7 @@
   const STORAGE_GNC = "tcp_gnc";
   const STORAGE_NAFTA = "tcp_nafta";
 
-  // Capturar evento de instalación
+  // INSTALACION PWA
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
@@ -409,11 +418,21 @@
   });
 
   function hoyISO() {
-    return new Date().toISOString().split('T')[0];
+    const hoy = new Date();
+    const año = hoy.getFullYear();
+    const mes = String(hoy.getMonth() + 1).padStart(2, "0");
+    const dia = String(hoy.getDate()).padStart(2, "0");
+    return `${año}-${mes}-${dia}`;
   }
 
-  function mesActual() {
-    return new Date().toISOString().slice(0,7);
+  function generarId() {
+    return crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36);
+  }
+
+  function guardarTodo() {
+    localStorage.setItem(STORAGE_VIAJES, JSON.stringify(viajes));
+    localStorage.setItem(STORAGE_GNC, JSON.stringify(gastosGNC));
+    localStorage.setItem(STORAGE_NAFTA, JSON.stringify(gastosNafta));
   }
 
   function cargarDatos() {
@@ -425,41 +444,26 @@
     gastosGNC = g ? JSON.parse(g) : [];
     gastosNafta = n ? JSON.parse(n) : [];
     
+    // si esta vacio agregamos algunos ejemplos demostrativos (opcional pero ayuda)
     if(viajes.length === 0) {
-      viajes = [
-        { id: Date.now()+1, fecha: hoyISO(), origen: "Centro", monto: 450 },
-        { id: Date.now()+2, fecha: hoyISO(), origen: "Aeropuerto", monto: 780 }
-      ];
+      viajes = [];
     }
     if(gastosGNC.length === 0) {
-      gastosGNC = [
-        { id: Date.now()+10, fecha: hoyISO(), monto: 1250, nota: "1ra carga GNC" }
-      ];
+      gastosGNC = [];
     }
     if(gastosNafta.length === 0) {
-      gastosNafta = [
-        { id: Date.now()+20, fecha: hoyISO(), monto: 2800, nota: "Nafta super" }
-      ];
+      gastosNafta = [];
     }
     guardarTodo();
   }
 
-  function guardarTodo() {
-    localStorage.setItem(STORAGE_VIAJES, JSON.stringify(viajes));
-    localStorage.setItem(STORAGE_GNC, JSON.stringify(gastosGNC));
-    localStorage.setItem(STORAGE_NAFTA, JSON.stringify(gastosNafta));
-  }
-
-  function generarId() {
-    return Date.now() + Math.random() * 10000;
-  }
-
+  // AGREGAR
   function agregarViaje() {
     const fecha = document.getElementById("fechaViaje").value;
     const origen = document.getElementById("origen").value.trim();
     const monto = parseFloat(document.getElementById("montoViaje").value);
     if(!fecha) { alert("Selecciona una fecha"); return; }
-    if(isNaN(monto) || monto <= 0) { alert("Monto valido"); return; }
+    if(isNaN(monto) || monto <= 0) { alert("Monto válido"); return; }
     viajes.push({ id: generarId(), fecha: fecha, origen: origen || "Sin detalle", monto: monto });
     guardarTodo();
     document.getElementById("origen").value = "";
@@ -468,10 +472,11 @@
   }
 
   function agregarGNC() {
-    let fecha = document.getElementById("fechaGNC").value || document.getElementById("fechaViaje").value || hoyISO();
+    let fecha = document.getElementById("fechaGNC").value;
+    if(!fecha) fecha = document.getElementById("fechaViaje").value || hoyISO();
     const monto = parseFloat(document.getElementById("montoGNC").value);
     const nota = document.getElementById("notaGNC").value.trim();
-    if(isNaN(monto) || monto <= 0) { alert("Monto de GNC valido"); return; }
+    if(isNaN(monto) || monto <= 0) { alert("Monto de GNC válido"); return; }
     gastosGNC.push({ id: generarId(), fecha: fecha, monto: monto, nota: nota || "Carga GNC" });
     guardarTodo();
     document.getElementById("montoGNC").value = "";
@@ -481,10 +486,11 @@
   }
 
   function agregarNafta() {
-    let fecha = document.getElementById("fechaNafta").value || document.getElementById("fechaViaje").value || hoyISO();
+    let fecha = document.getElementById("fechaNafta").value;
+    if(!fecha) fecha = document.getElementById("fechaViaje").value || hoyISO();
     const monto = parseFloat(document.getElementById("montoNafta").value);
     const nota = document.getElementById("notaNafta").value.trim();
-    if(isNaN(monto) || monto <= 0) { alert("Monto de NAFTA valido"); return; }
+    if(isNaN(monto) || monto <= 0) { alert("Monto de NAFTA válido"); return; }
     gastosNafta.push({ id: generarId(), fecha: fecha, monto: monto, nota: nota || "Carga Nafta" });
     guardarTodo();
     document.getElementById("montoNafta").value = "";
@@ -493,33 +499,60 @@
     actualizarTodo();
   }
 
-  function eliminarViaje(id) {
-    if(confirm("Eliminar este viaje?")) {
-      viajes = viajes.filter(function(v) { return v.id !== id; });
-      guardarTodo();
-      actualizarTodo();
-    }
+  // ELIMINAR
+  function eliminarViaje(id) { if(confirm("Eliminar este viaje?")) { viajes = viajes.filter(v => v.id !== id); guardarTodo(); actualizarTodo(); } }
+  function eliminarGNC(id) { if(confirm("Eliminar gasto GNC?")) { gastosGNC = gastosGNC.filter(g => g.id !== id); guardarTodo(); actualizarTodo(); } }
+  function eliminarNafta(id) { if(confirm("Eliminar gasto NAFTA?")) { gastosNafta = gastosNafta.filter(n => n.id !== id); guardarTodo(); actualizarTodo(); } }
+
+  // EDITAR
+  function editarViaje(id) {
+    const viaje = viajes.find(v => v.id === id);
+    if(!viaje) return;
+    let nuevaFecha = prompt("Nueva fecha (YYYY-MM-DD):", viaje.fecha);
+    if(!nuevaFecha) return;
+    let nuevoOrigen = prompt("Nuevo origen/destino:", viaje.origen);
+    let nuevoMonto = parseFloat(prompt("Nuevo monto:", viaje.monto));
+    if(isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("Monto inválido"); return; }
+    viaje.fecha = nuevaFecha;
+    viaje.origen = nuevoOrigen || viaje.origen;
+    viaje.monto = nuevoMonto;
+    guardarTodo();
+    actualizarTodo();
   }
 
-  function eliminarGNC(id) {
-    if(confirm("Eliminar gasto GNC?")) {
-      gastosGNC = gastosGNC.filter(function(g) { return g.id !== id; });
-      guardarTodo();
-      actualizarTodo();
-    }
+  function editarGNC(id) {
+    const gasto = gastosGNC.find(g => g.id === id);
+    if(!gasto) return;
+    let nuevaFecha = prompt("Nueva fecha:", gasto.fecha);
+    if(!nuevaFecha) return;
+    let nuevoMonto = parseFloat(prompt("Nuevo monto:", gasto.monto));
+    if(isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("Monto inválido"); return; }
+    let nuevaNota = prompt("Nueva nota:", gasto.nota);
+    gasto.fecha = nuevaFecha;
+    gasto.monto = nuevoMonto;
+    gasto.nota = nuevaNota || gasto.nota;
+    guardarTodo();
+    actualizarTodo();
   }
 
-  function eliminarNafta(id) {
-    if(confirm("Eliminar gasto NAFTA?")) {
-      gastosNafta = gastosNafta.filter(function(n) { return n.id !== id; });
-      guardarTodo();
-      actualizarTodo();
-    }
+  function editarNafta(id) {
+    const gasto = gastosNafta.find(n => n.id === id);
+    if(!gasto) return;
+    let nuevaFecha = prompt("Nueva fecha:", gasto.fecha);
+    if(!nuevaFecha) return;
+    let nuevoMonto = parseFloat(prompt("Nuevo monto:", gasto.monto));
+    if(isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("Monto inválido"); return; }
+    let nuevaNota = prompt("Nueva nota:", gasto.nota);
+    gasto.fecha = nuevaFecha;
+    gasto.monto = nuevoMonto;
+    gasto.nota = nuevaNota || gasto.nota;
+    guardarTodo();
+    actualizarTodo();
   }
 
   function filtrarPorMes(items) {
     if(mesFiltro === "all") return items;
-    return items.filter(function(i) { return i.fecha && i.fecha.startsWith(mesFiltro); });
+    return items.filter(i => i.fecha && i.fecha.startsWith(mesFiltro));
   }
 
   function escapeHtml(str) {
@@ -532,206 +565,156 @@
   }
 
   function renderizarTablas() {
-    var viajesF = filtrarPorMes(viajes);
-    var gncF = filtrarPorMes(gastosGNC);
-    var naftaF = filtrarPorMes(gastosNafta);
-
-    var tbodyViajes = document.getElementById("cuerpoViajes");
+    const viajesF = filtrarPorMes(viajes);
+    const gncF = filtrarPorMes(gastosGNC);
+    const naftaF = filtrarPorMes(gastosNafta);
+    
+    const cuerpoViajes = document.getElementById("cuerpoViajes");
     if(viajesF.length === 0) {
-      tbodyViajes.innerHTML = '<tr><td colspan="4">Sin viajes</td></tr>';
+      cuerpoViajes.innerHTML = '<tr><td colspan="4">Sin viajes</td></tr>';
     } else {
-      var html = "";
-      for(var i = 0; i < viajesF.length; i++) {
-        var v = viajesF[i];
-        html += '<tr>' +
-          '<td>' + v.fecha + '</td>' +
-          '<td>' + escapeHtml(v.origen) + '</td>' +
-          '<td>$' + v.monto.toFixed(2) + '</td>' +
-          '<td><button class="btn-editar" onclick="window.editarViaje(' + v.id + ')">Editar</button> ' +
-          '<button class="btn-eliminar" onclick="window.eliminarViaje(' + v.id + ')">Eliminar</button></td>' +
-          '</tr>';
+      let html = "";
+      for(let v of viajesF) {
+        html += `<tr>
+          <td>${v.fecha}</td>
+          <td>${escapeHtml(v.origen)}</td>
+          <td>$${v.monto.toFixed(2)}</td>
+          <td><button class="btn-editar" data-id="${v.id}" data-tipo="viaje">Editar</button> <button class="btn-eliminar" data-id="${v.id}" data-tipo="viaje">Eliminar</button></td>
+        </tr>`;
       }
-      tbodyViajes.innerHTML = html;
+      cuerpoViajes.innerHTML = html;
     }
 
-    var tbodyGNC = document.getElementById("cuerpoGNC");
+    const cuerpoGNC = document.getElementById("cuerpoGNC");
     if(gncF.length === 0) {
-      tbodyGNC.innerHTML = '<tr><td colspan="4">Sin GNC</td></tr>';
+      cuerpoGNC.innerHTML = '<tr><td colspan="4">Sin GNC</td></tr>';
     } else {
-      var htmlG = "";
-      for(var j = 0; j < gncF.length; j++) {
-        var g = gncF[j];
-        htmlG += '<tr>' +
-          '<td>' + g.fecha + '</td>' +
-          '<td>$' + g.monto.toFixed(2) + '</td>' +
-          '<td>' + escapeHtml(g.nota) + '</td>' +
-          '<td><button class="btn-editar" onclick="window.editarGNC(' + g.id + ')">Editar</button> ' +
-          '<button class="btn-eliminar" onclick="window.eliminarGNC(' + g.id + ')">Eliminar</button></td>' +
-          '</tr>';
+      let html = "";
+      for(let g of gncF) {
+        html += `<tr>
+          <td>${g.fecha}</td>
+          <td>$${g.monto.toFixed(2)}</td>
+          <td>${escapeHtml(g.nota)}</td>
+          <td><button class="btn-editar" data-id="${g.id}" data-tipo="gnc">Editar</button> <button class="btn-eliminar" data-id="${g.id}" data-tipo="gnc">Eliminar</button></td>
+        </tr>`;
       }
-      tbodyGNC.innerHTML = htmlG;
+      cuerpoGNC.innerHTML = html;
     }
 
-    var tbodyNafta = document.getElementById("cuerpoNafta");
+    const cuerpoNafta = document.getElementById("cuerpoNafta");
     if(naftaF.length === 0) {
-      tbodyNafta.innerHTML = '<tr><td colspan="4">Sin NAFTA</td></tr>';
+      cuerpoNafta.innerHTML = '<tr><td colspan="4">Sin NAFTA</td></tr>';
     } else {
-      var htmlN = "";
-      for(var k = 0; k < naftaF.length; k++) {
-        var n = naftaF[k];
-        htmlN += '<tr>' +
-          '<td>' + n.fecha + '</td>' +
-          '<td>$' + n.monto.toFixed(2) + '</td>' +
-          '<td>' + escapeHtml(n.nota) + '</td>' +
-          '<td><button class="btn-editar" onclick="window.editarNafta(' + n.id + ')">Editar</button> ' +
-          '<button class="btn-eliminar" onclick="window.eliminarNafta(' + n.id + ')">Eliminar</button></td>' +
-          '</tr>';
+      let html = "";
+      for(let n of naftaF) {
+        html += `<tr>
+          <td>${n.fecha}</td>
+          <td>$${n.monto.toFixed(2)}</td>
+          <td>${escapeHtml(n.nota)}</td>
+          <td><button class="btn-editar" data-id="${n.id}" data-tipo="nafta">Editar</button> <button class="btn-eliminar" data-id="${n.id}" data-tipo="nafta">Eliminar</button></td>
+        </tr>`;
       }
-      tbodyNafta.innerHTML = htmlN;
+      cuerpoNafta.innerHTML = html;
     }
+
+    // event delegation para botones dinámicos
+    document.querySelectorAll("#cuerpoViajes .btn-editar, #cuerpoGNC .btn-editar, #cuerpoNafta .btn-editar").forEach(btn => {
+      btn.removeEventListener('click', handleEditar);
+      btn.addEventListener('click', handleEditar);
+    });
+    document.querySelectorAll("#cuerpoViajes .btn-eliminar, #cuerpoGNC .btn-eliminar, #cuerpoNafta .btn-eliminar").forEach(btn => {
+      btn.removeEventListener('click', handleEliminar);
+      btn.addEventListener('click', handleEliminar);
+    });
   }
 
-  function editarViaje(id) {
-    var viaje = null;
-    for(var i = 0; i < viajes.length; i++) {
-      if(viajes[i].id === id) { viaje = viajes[i]; break; }
-    }
-    if(!viaje) return;
-    var nuevaFecha = prompt("Nueva fecha (YYYY-MM-DD):", viaje.fecha);
-    if(!nuevaFecha) return;
-    var nuevoOrigen = prompt("Nuevo origen:", viaje.origen);
-    var nuevoMonto = parseFloat(prompt("Nuevo monto:", viaje.monto));
-    if(isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("Monto invalido"); return; }
-    viaje.fecha = nuevaFecha;
-    viaje.origen = nuevoOrigen || viaje.origen;
-    viaje.monto = nuevoMonto;
-    guardarTodo();
-    actualizarTodo();
+  function handleEditar(e) {
+    const btn = e.currentTarget;
+    const id = btn.getAttribute('data-id');
+    const tipo = btn.getAttribute('data-tipo');
+    if(tipo === 'viaje') editarViaje(id);
+    else if(tipo === 'gnc') editarGNC(id);
+    else if(tipo === 'nafta') editarNafta(id);
   }
 
-  function editarGNC(id) {
-    var gasto = null;
-    for(var i = 0; i < gastosGNC.length; i++) {
-      if(gastosGNC[i].id === id) { gasto = gastosGNC[i]; break; }
-    }
-    if(!gasto) return;
-    var nuevaFecha = prompt("Nueva fecha:", gasto.fecha);
-    if(!nuevaFecha) return;
-    var nuevoMonto = parseFloat(prompt("Nuevo monto:", gasto.monto));
-    if(isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("Monto invalido"); return; }
-    var nuevaNota = prompt("Nueva nota:", gasto.nota);
-    gasto.fecha = nuevaFecha;
-    gasto.monto = nuevoMonto;
-    gasto.nota = nuevaNota || gasto.nota;
-    guardarTodo();
-    actualizarTodo();
-  }
-
-  function editarNafta(id) {
-    var gasto = null;
-    for(var i = 0; i < gastosNafta.length; i++) {
-      if(gastosNafta[i].id === id) { gasto = gastosNafta[i]; break; }
-    }
-    if(!gasto) return;
-    var nuevaFecha = prompt("Nueva fecha:", gasto.fecha);
-    if(!nuevaFecha) return;
-    var nuevoMonto = parseFloat(prompt("Nuevo monto:", gasto.monto));
-    if(isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("Monto invalido"); return; }
-    var nuevaNota = prompt("Nueva nota:", gasto.nota);
-    gasto.fecha = nuevaFecha;
-    gasto.monto = nuevoMonto;
-    gasto.nota = nuevaNota || gasto.nota;
-    guardarTodo();
-    actualizarTodo();
+  function handleEliminar(e) {
+    const btn = e.currentTarget;
+    const id = btn.getAttribute('data-id');
+    const tipo = btn.getAttribute('data-tipo');
+    if(tipo === 'viaje') eliminarViaje(id);
+    else if(tipo === 'gnc') eliminarGNC(id);
+    else if(tipo === 'nafta') eliminarNafta(id);
   }
 
   function actualizarResumenes() {
-    var mesMostrar = mesFiltro === "all" ? mesActual() : mesFiltro;
-    var viajesM = viajes.filter(function(v) { return v.fecha && v.fecha.startsWith(mesMostrar); });
-    var gncM = gastosGNC.filter(function(g) { return g.fecha && g.fecha.startsWith(mesMostrar); });
-    var naftaM = gastosNafta.filter(function(n) { return n.fecha && n.fecha.startsWith(mesMostrar); });
+    const mesMostrar = mesFiltro === "all" ? (new Date().toISOString().slice(0,7)) : mesFiltro;
+    const viajesM = viajes.filter(v => v.fecha && v.fecha.startsWith(mesMostrar));
+    const gncM = gastosGNC.filter(g => g.fecha && g.fecha.startsWith(mesMostrar));
+    const naftaM = gastosNafta.filter(n => n.fecha && n.fecha.startsWith(mesMostrar));
     
-    var ingresos = 0;
-    for(var i = 0; i < viajesM.length; i++) ingresos += viajesM[i].monto;
-    var gastosGNC_M = 0;
-    for(var j = 0; j < gncM.length; j++) gastosGNC_M += gncM[j].monto;
-    var gastosNafta_M = 0;
-    for(var k = 0; k < naftaM.length; k++) gastosNafta_M += naftaM[k].monto;
-    var totalGastos = gastosGNC_M + gastosNafta_M;
-    var ganancia = ingresos - totalGastos;
-    var cantidadViajes = viajesM.length;
-    var cantidadCargas = gncM.length + naftaM.length;
-    var promedioViaje = cantidadViajes > 0 ? ingresos / cantidadViajes : 0;
+    const ingresos = viajesM.reduce((acc, v) => acc + v.monto, 0);
+    const gastosGNC_M = gncM.reduce((acc, g) => acc + g.monto, 0);
+    const gastosNafta_M = naftaM.reduce((acc, n) => acc + n.monto, 0);
+    const totalGastos = gastosGNC_M + gastosNafta_M;
+    const ganancia = ingresos - totalGastos;
+    const cantidadViajes = viajesM.length;
+    const cantidadCargas = gncM.length + naftaM.length;
+    const promedioViaje = cantidadViajes > 0 ? ingresos / cantidadViajes : 0;
     
-    var yearMonth = mesMostrar.split('-');
-    var year = yearMonth[0];
-    var month = yearMonth[1];
-    var nomMes = new Date(parseInt(year), parseInt(month)-1, 1).toLocaleString('es', { month: 'long' });
+    const [year, month] = mesMostrar.split('-');
+    const nomMes = new Date(parseInt(year), parseInt(month)-1, 1).toLocaleString('es', { month: 'long' });
     
-    var resumenHTML = '';
-    resumenHTML += '<div class="stat-card"><strong>' + nomMes + ' ' + year + '</strong><div class="numero-grande">$' + ingresos.toFixed(2) + '</div><div>Ingresos</div></div>';
-    resumenHTML += '<div class="stat-card"><span class="badge-gnc">GNC</span><div class="numero-grande">$' + gastosGNC_M.toFixed(2) + '</div></div>';
-    resumenHTML += '<div class="stat-card"><span class="badge-nafta">NAFTA</span><div class="numero-grande">$' + gastosNafta_M.toFixed(2) + '</div></div>';
-    resumenHTML += '<div class="stat-card"><strong>Ganancia</strong><div class="numero-grande">$' + ganancia.toFixed(2) + '</div></div>';
-    resumenHTML += '<div class="stat-card"><strong>Viajes</strong><div class="numero-grande">' + cantidadViajes + '</div></div>';
-    resumenHTML += '<div class="stat-card"><strong>Cargas</strong><div class="numero-grande">' + cantidadCargas + '</div></div>';
-    resumenHTML += '<div class="stat-card"><strong>Promedio</strong><div class="numero-grande">$' + promedioViaje.toFixed(2) + '</div></div>';
+    let resumenHTML = '';
+    resumenHTML += `<div class="stat-card"><strong>${nomMes} ${year}</strong><div class="numero-grande">$${ingresos.toFixed(2)}</div><div>Ingresos</div></div>`;
+    resumenHTML += `<div class="stat-card"><span class="badge-gnc">GNC</span><div class="numero-grande">$${gastosGNC_M.toFixed(2)}</div></div>`;
+    resumenHTML += `<div class="stat-card"><span class="badge-nafta">NAFTA</span><div class="numero-grande">$${gastosNafta_M.toFixed(2)}</div></div>`;
+    resumenHTML += `<div class="stat-card"><strong>Ganancia</strong><div class="numero-grande">$${ganancia.toFixed(2)}</div></div>`;
+    resumenHTML += `<div class="stat-card"><strong>Viajes</strong><div class="numero-grande">${cantidadViajes}</div></div>`;
+    resumenHTML += `<div class="stat-card"><strong>Cargas</strong><div class="numero-grande">${cantidadCargas}</div></div>`;
+    resumenHTML += `<div class="stat-card"><strong>Promedio</strong><div class="numero-grande">$${promedioViaje.toFixed(2)}</div></div>`;
     document.getElementById("resumenMensual").innerHTML = resumenHTML;
 
-    var viajesF = filtrarPorMes(viajes);
-    var gncF = filtrarPorMes(gastosGNC);
-    var naftaF = filtrarPorMes(gastosNafta);
-    var ingF = 0;
-    for(var a = 0; a < viajesF.length; a++) ingF += viajesF[a].monto;
-    var gastosGNC_F = 0;
-    for(var b = 0; b < gncF.length; b++) gastosGNC_F += gncF[b].monto;
-    var gastosNafta_F = 0;
-    for(var c = 0; c < naftaF.length; c++) gastosNafta_F += naftaF[c].monto;
-    var totalGastosF = gastosGNC_F + gastosNafta_F;
-    var gananciaF = ingF - totalGastosF;
-    var cantViajesF = viajesF.length;
-    var cantCargasF = gncF.length + naftaF.length;
-    var promedioF = cantViajesF > 0 ? ingF / cantViajesF : 0;
+    const viajesF = filtrarPorMes(viajes);
+    const gncF = filtrarPorMes(gastosGNC);
+    const naftaF = filtrarPorMes(gastosNafta);
+    const ingF = viajesF.reduce((a,b)=>a+b.monto,0);
+    const gncFsum = gncF.reduce((a,b)=>a+b.monto,0);
+    const naftaFsum = naftaF.reduce((a,b)=>a+b.monto,0);
+    const totalGastosF = gncFsum + naftaFsum;
+    const gananciaF = ingF - totalGastosF;
+    const cantViajesF = viajesF.length;
+    const cantCargasF = gncF.length + naftaF.length;
+    const promedioF = cantViajesF > 0 ? ingF / cantViajesF : 0;
     
     document.getElementById("ingresosValor").innerHTML = '$' + ingF.toFixed(2);
-    document.getElementById("gncValor").innerHTML = '$' + gastosGNC_F.toFixed(2);
-    document.getElementById("naftaValor").innerHTML = '$' + gastosNafta_F.toFixed(2);
+    document.getElementById("gncValor").innerHTML = '$' + gncFsum.toFixed(2);
+    document.getElementById("naftaValor").innerHTML = '$' + naftaFsum.toFixed(2);
     document.getElementById("gastosValor").innerHTML = '$' + totalGastosF.toFixed(2);
     document.getElementById("gananciaValor").innerHTML = '$' + gananciaF.toFixed(2);
     document.getElementById("viajesCantidad").innerHTML = cantViajesF;
     document.getElementById("cargasCantidad").innerHTML = cantCargasF;
     document.getElementById("promedioValor").innerHTML = '$' + promedioF.toFixed(2);
 
-    var hoy = hoyISO();
-    var vHoy = 0;
-    for(var d = 0; d < viajes.length; d++) if(viajes[d].fecha === hoy) vHoy += viajes[d].monto;
-    var gHoy = 0;
-    for(var e = 0; e < gastosGNC.length; e++) if(gastosGNC[e].fecha === hoy) gHoy += gastosGNC[e].monto;
-    var nHoy = 0;
-    for(var f = 0; f < gastosNafta.length; f++) if(gastosNafta[f].fecha === hoy) nHoy += gastosNafta[f].monto;
-    var viajesHoy = 0;
-    for(var g = 0; g < viajes.length; g++) if(viajes[g].fecha === hoy) viajesHoy++;
-    var cargasHoy = 0;
-    for(var h = 0; h < gastosGNC.length; h++) if(gastosGNC[h].fecha === hoy) cargasHoy++;
-    for(var ii = 0; ii < gastosNafta.length; ii++) if(gastosNafta[ii].fecha === hoy) cargasHoy++;
-    document.getElementById("resumenHoy").innerHTML = 'Ingresos: $' + vHoy.toFixed(2) + ' | GNC: $' + gHoy.toFixed(2) + ' | Nafta: $' + nHoy.toFixed(2) + ' | Neto: $' + (vHoy - gHoy - nHoy).toFixed(2) + ' | ' + viajesHoy + ' viajes | ' + cargasHoy + ' cargas';
+    const hoy = hoyISO();
+    let vHoy = 0, gHoy = 0, nHoy = 0, viajesHoyCount = 0, cargasHoyCount = 0;
+    viajes.forEach(v => { if(v.fecha === hoy) { vHoy += v.monto; viajesHoyCount++; } });
+    gastosGNC.forEach(g => { if(g.fecha === hoy) { gHoy += g.monto; cargasHoyCount++; } });
+    gastosNafta.forEach(n => { if(n.fecha === hoy) { nHoy += n.monto; cargasHoyCount++; } });
+    document.getElementById("resumenHoy").innerHTML = `Ingresos: $${vHoy.toFixed(2)} | GNC: $${gHoy.toFixed(2)} | Nafta: $${nHoy.toFixed(2)} | Neto: $${(vHoy - gHoy - nHoy).toFixed(2)} | ${viajesHoyCount} viajes | ${cargasHoyCount} cargas`;
   }
 
   function actualizarSelector() {
-    var select = document.getElementById("selectorMes");
-    var mesesSet = new Set();
-    for(var i = 0; i < viajes.length; i++) if(viajes[i].fecha && viajes[i].fecha.length >= 7) mesesSet.add(viajes[i].fecha.substring(0,7));
-    for(var j = 0; j < gastosGNC.length; j++) if(gastosGNC[j].fecha && gastosGNC[j].fecha.length >= 7) mesesSet.add(gastosGNC[j].fecha.substring(0,7));
-    for(var k = 0; k < gastosNafta.length; k++) if(gastosNafta[k].fecha && gastosNafta[k].fecha.length >= 7) mesesSet.add(gastosNafta[k].fecha.substring(0,7));
-    var mesesArr = Array.from(mesesSet).sort().reverse();
-    var opts = '<option value="all">Todos los meses</option>';
-    for(var m = 0; m < mesesArr.length; m++) {
-      var ym = mesesArr[m];
-      var parts = ym.split('-');
-      var y = parts[0];
-      var mesNum = parseInt(parts[1]);
-      var nom = new Date(y, mesNum-1, 1).toLocaleString('es', { month: 'long' });
-      opts += '<option value="' + ym + '">' + nom.charAt(0).toUpperCase() + nom.slice(1) + ' ' + y + '</option>';
+    const select = document.getElementById("selectorMes");
+    const mesesSet = new Set();
+    [...viajes, ...gastosGNC, ...gastosNafta].forEach(item => {
+      if(item.fecha && item.fecha.length >= 7) mesesSet.add(item.fecha.substring(0,7));
+    });
+    const mesesArr = Array.from(mesesSet).sort().reverse();
+    let opts = '<option value="all">📆 Todos los meses</option>';
+    for(let ym of mesesArr) {
+      const [y, m] = ym.split('-');
+      const nom = new Date(parseInt(y), parseInt(m)-1, 1).toLocaleString('es', { month: 'long' });
+      opts += `<option value="${ym}">${nom.charAt(0).toUpperCase() + nom.slice(1)} ${y}</option>`;
     }
     select.innerHTML = opts;
     select.value = mesFiltro;
@@ -743,23 +726,70 @@
     actualizarResumenes();
   }
 
+  // CSV
+  function exportarCSV() {
+    let csv = "Tipo,Fecha,Detalle,Monto\n";
+    viajes.forEach(v => { csv += `Viaje,${v.fecha},"${v.origen.replace(/"/g, '""')}",${v.monto}\n`; });
+    gastosGNC.forEach(g => { csv += `GNC,${g.fecha},"${g.nota.replace(/"/g, '""')}",${g.monto}\n`; });
+    gastosNafta.forEach(n => { csv += `NAFTA,${n.fecha},"${n.nota.replace(/"/g, '""')}",${n.monto}\n`; });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `taxi-control-${hoyISO()}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+
+  function importarCSV(archivo) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const texto = e.target.result;
+      const lineas = texto.split("\n");
+      let nuevosViajes = [], nuevosGNC = [], nuevosNafta = [];
+      for(let i=1; i<lineas.length; i++) {
+        const linea = lineas[i].trim();
+        if(!linea) continue;
+        const partes = linea.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+        if(!partes || partes.length < 4) continue;
+        const tipo = partes[0].replace(/^"|"$/g, '');
+        const fecha = partes[1].replace(/^"|"$/g, '');
+        let detalle = partes[2].replace(/^"|"$/g, '');
+        const monto = parseFloat(partes[3]);
+        if(isNaN(monto)) continue;
+        if(tipo === "Viaje") nuevosViajes.push({ id: generarId(), fecha, origen: detalle || "Sin detalle", monto });
+        else if(tipo === "GNC") nuevosGNC.push({ id: generarId(), fecha, nota: detalle || "Carga GNC", monto });
+        else if(tipo === "NAFTA") nuevosNafta.push({ id: generarId(), fecha, nota: detalle || "Carga Nafta", monto });
+      }
+      if(nuevosViajes.length) viajes = nuevosViajes;
+      if(nuevosGNC.length) gastosGNC = nuevosGNC;
+      if(nuevosNafta.length) gastosNafta = nuevosNafta;
+      guardarTodo();
+      actualizarTodo();
+      alert(`Importación exitosa: ${nuevosViajes.length} viajes, ${nuevosGNC.length} GNC, ${nuevosNafta.length} NAFTA.`);
+      document.getElementById("archivoCSV").value = "";
+    };
+    reader.readAsText(archivo, "UTF-8");
+  }
+
   function init() {
     cargarDatos();
     if(!document.getElementById("fechaViaje").value) document.getElementById("fechaViaje").value = hoyISO();
-    document.getElementById("btnAgregarViaje").onclick = agregarViaje;
-    document.getElementById("btnAgregarGNC").onclick = agregarGNC;
-    document.getElementById("btnAgregarNafta").onclick = agregarNafta;
-    document.getElementById("selectorMes").onchange = function(e) { mesFiltro = e.target.value; actualizarTodo(); };
-    document.getElementById("btnMostrarTodo").onclick = function() { mesFiltro = "all"; document.getElementById("selectorMes").value = "all"; actualizarTodo(); };
+        document.getElementById("btnAgregarViaje").onclick = agregarViaje;
+        document.getElementById("btnAgregarGNC").onclick = agregarGNC;
+        document.getElementById("btnAgregarNafta").onclick = agregarNafta;
+        document.getElementById("selectorMes").onchange = (e) => { mesFiltro = e.target.value; actualizarTodo(); };
+        document.getElementById("btnMostrarTodo").onclick = () => { mesFiltro = "all"; document.getElementById("selectorMes").value = "all"; actualizarTodo(); };
+        document.getElementById("btnExportarCSV").onclick = exportarCSV;
+        document.getElementById("btnImportarCSV").onclick = () => document.getElementById("archivoCSV").click();
+        document.getElementById("archivoCSV").onchange = (e) => { if(e.target.files[0]) importarCSV(e.target.files[0]); };
     actualizarTodo();
   }
 
-  window.editarViaje = editarViaje;
-  window.editarGNC = editarGNC;
-  window.editarNafta = editarNafta;
-  window.eliminarViaje = eliminarViaje;
-  window.eliminarGNC = eliminarGNC;
-  window.eliminarNafta = eliminarNafta;
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js")
+      .then(() => console.log("✅ Service Worker registrado"))
+      .catch(err => console.error("❌ Error al registrar SW:", err));
+  }
 
   init();
 })();

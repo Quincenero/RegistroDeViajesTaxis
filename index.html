@@ -3,13 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  
+  <!-- ========== CONFIGURACIÓN PARA INSTALACIÓN EN ANDROID ========== -->
   <meta name="theme-color" content="#1f5e7e">
-  <title>Taxi Control Pro · Control total para taxistas</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Taxi Control Pro">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Taxi Control Pro">
+  
+  <!-- ÍCONOS para la pantalla de inicio (emojis como fallback, pero mejor con imágenes inline) -->
+  <link rel="apple-touch-icon" sizes="192x192" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231f5e7e'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white'%3E🚕%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" sizes="192x192" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231f5e7e'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white'%3E🚕%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" sizes="512x512" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231f5e7e'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white'%3E🚕%3C/text%3E%3C/svg%3E">
+  
+  <!-- Manifest para instalación -->
+  <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Taxi%20Control%20Pro%22,%22short_name%22:%22TaxiPro%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22theme_color%22:%22%231f5e7e%22,%22background_color%22:%22%23eef2f7%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231f5e7e'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white'%3E🚕%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22}]}">
+  
+  <title>Taxi Control Pro</title>
+  
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -43,6 +61,16 @@
     h1 {
       font-size: 1.8rem;
       color: #1a4d5f;
+    }
+
+    .version {
+      font-size: 0.6rem;
+      color: #7c8f9a;
+      background: #e8f0f3;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-top: 4px;
     }
 
     h2 {
@@ -207,40 +235,45 @@
       margin: 12px 0;
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal-contenido {
-      background: white;
-      border-radius: 24px;
-      padding: 20px;
-      width: 90%;
-      max-width: 400px;
-    }
-
     footer {
       text-align: center;
       font-size: 0.6rem;
       color: #7c8f9a;
       margin-top: 16px;
     }
+    
+    .banner-instalacion {
+      background: #ff9800;
+      color: white;
+      padding: 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+    
+    .banner-instalacion button {
+      background: white;
+      color: #ff9800;
+      margin-left: 10px;
+      padding: 6px 12px;
+      min-height: auto;
+    }
   </style>
 </head>
 <body>
 <div class="container">
+  
+  <div id="bannerInstalacion" class="banner-instalacion">
+    📱 ¡Instalá Taxi Control Pro! 
+    <button id="btnInstalar">Agregar a inicio</button>
+  </div>
+  
   <div class="header">
     <div class="logo">🚕</div>
     <h1>Taxi Control Pro</h1>
+    <div class="version">versión 2.0</div>
     <p style="color:#5f7d8c; font-size:0.75rem;">Control total de viajes · GNC · NAFTA</p>
   </div>
 
@@ -311,7 +344,7 @@
       <table id="tablaViajes">
         <thead><tr><th>Fecha</th><th>Origen</th><th>Monto</th><th></th></tr></thead>
         <tbody id="cuerpoViajes"><tr><td colspan="4">Sin viajes</td></tr></tbody>
-      </table>
+      ~
     </div>
 
     <h2>🟢 GNC</h2>
@@ -319,7 +352,7 @@
       <table id="tablaGNC">
         <thead><tr><th>Fecha</th><th>Importe</th><th>Nota</th><th></th></tr></thead>
         <tbody id="cuerpoGNC"><tr><td colspan="4">Sin GNC</td></tr></tbody>
-      </table>
+      ~
     </div>
 
     <h2>⛽ NAFTA</h2>
@@ -327,7 +360,7 @@
       <table id="tablaNafta">
         <thead><tr><th>Fecha</th><th>Importe</th><th>Nota</th><th></th></tr></thead>
         <tbody id="cuerpoNafta"><tr><td colspan="4">Sin NAFTA</td></tr></tbody>
-      </table>
+      ~
     </div>
   </div>
 
@@ -345,28 +378,35 @@
   </footer>
 </div>
 
-<div id="modalEditar" class="modal">
-  <div class="modal-contenido">
-    <h3 id="modalTitulo">✏️ Editar registro</h3>
-    <div id="modalCampos"></div>
-    <div style="display: flex; gap: 12px; margin-top: 20px;">
-      <button id="btnGuardarEdicion" style="background:#2b6e3c; flex:1;">Guardar</button>
-      <button id="btnCancelarEdicion" style="background:#aaa; flex:1;">Cancelar</button>
-    </div>
-  </div>
-</div>
-
 <script>
 (function() {
   let viajes = [];
   let gastosGNC = [];
   let gastosNafta = [];
   let mesFiltro = "all";
-  let itemEditando = null;
+  let deferredPrompt;
 
   const STORAGE_VIAJES = "tcp_viajes";
   const STORAGE_GNC = "tcp_gnc";
   const STORAGE_NAFTA = "tcp_nafta";
+
+  // Capturar evento de instalación
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('bannerInstalacion').style.display = 'block';
+  });
+
+  document.getElementById('btnInstalar')?.addEventListener('click', () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => {
+        document.getElementById('bannerInstalacion').style.display = 'none';
+      });
+    } else {
+      alert('Presiona los 3 puntos (⋮) y selecciona "Agregar a pantalla de inicio"');
+    }
+  });
 
   function hoyISO() {
     return new Date().toISOString().split('T')[0];

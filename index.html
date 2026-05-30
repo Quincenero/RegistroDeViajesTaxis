@@ -4,20 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <meta name="theme-color" content="#1f5e7e">
-  <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Taxi Control Pro · Control total para taxistas</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       background: #eef2f7;
       padding: 12px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
 
     .container {
@@ -31,7 +29,6 @@
       padding: 16px;
       margin-bottom: 16px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      border: 1px solid #e2e8f0;
     }
 
     .header {
@@ -41,44 +38,19 @@
 
     .logo {
       font-size: 3rem;
-      margin-bottom: 4px;
     }
 
     h1 {
       font-size: 1.8rem;
       color: #1a4d5f;
-      letter-spacing: -0.5px;
-    }
-
-    .version {
-      font-size: 0.6rem;
-      color: #7c8f9a;
-      background: #e8f0f3;
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 20px;
-      margin-top: 4px;
-    }
-
-    .subtitulo {
-      text-align: center;
-      color: #5f7d8c;
-      font-size: 0.75rem;
-      margin-bottom: 12px;
     }
 
     h2 {
       font-size: 1.1rem;
       color: #1f5e7e;
       margin-bottom: 12px;
-      padding-left: 10px;
       border-left: 4px solid #2c8c6e;
-    }
-
-    h3 {
-      font-size: 0.9rem;
-      color: #2c5a6e;
-      margin: 12px 0 8px 0;
+      padding-left: 10px;
     }
 
     .form-row {
@@ -95,22 +67,18 @@
 
     .campo label {
       display: block;
-      font-size: 0.65rem;
-      font-weight: 600;
+      font-size: 0.7rem;
+      font-weight: bold;
       color: #4a6f7e;
       margin-bottom: 4px;
     }
 
-    .campo input, .campo textarea {
+    .campo input {
       width: 100%;
-      padding: 12px 10px;
+      padding: 12px;
       border-radius: 14px;
       border: 1px solid #cbd5e1;
-      background: white;
       font-size: 0.9rem;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none; 
     }
 
     button {
@@ -122,18 +90,11 @@
       color: white;
       cursor: pointer;
       font-size: 0.85rem;
-      transition: 0.1s;
       min-height: 48px;
-      touch-action: manipulation;
     }
 
     button:active {
       transform: scale(0.96);
-      background: #0f5546;
-    }
-
-    .btn-google {
-      background: #4285f4;
     }
 
     .btn-editar {
@@ -171,30 +132,24 @@
 
     .filtro-bar {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
       gap: 10px;
+      margin-bottom: 16px;
     }
 
     .selector-mes {
-      background: white;
-      padding: 10px 14px;
+      flex: 1;
+      padding: 10px;
       border-radius: 30px;
       border: 1px solid #cbd5e1;
-      font-size: 0.85rem;
-      flex: 1;
     }
 
-    /* RESUMEN CHICO MEJORADO - MÁS INFORMACIÓN */
     .resumen-chico {
       background: linear-gradient(135deg, #1a4d5f 0%, #1f5e7e 100%);
       color: white;
-      padding: 12px 16px;
+      padding: 12px;
       border-radius: 20px;
-      font-size: 1rem;
-      width: 100%;
+      margin-bottom: 16px;
+      font-size: 0.75rem;
     }
 
     .resumen-chico .fila {
@@ -203,29 +158,6 @@
       margin-bottom: 6px;
     }
 
-    .resumen-chico .fila:last-child {
-      margin-bottom: 0;
-    }
-
-    .resumen-chico .label {
-      font-weight: normal;
-      opacity: 0.9;
-    }
-
-    .resumen-chico .valor {
-      font-weight: bold;
-    }
-
-    .resumen-chico .ganancia {
-      color: #a5d6a5;
-      font-size: 1.2rem;
-    }
-
-    .resumen-chico .perdida {
-      color: #ffab91;
-    }
-
-    /* Tablas */
     .tabla-wrapper {
       overflow-x: auto;
       margin-bottom: 12px;
@@ -235,14 +167,12 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 0.75rem;
-      
     }
 
     th {
       background: #e2eaf0;
       padding: 10px 6px;
       text-align: left;
-      color: #1a4f62;
     }
 
     td {
@@ -250,11 +180,6 @@
       border-bottom: 1px solid #e2e8ed;
     }
 
-    .acciones {
-      white-space: nowrap;
-    }
-
-    /* Stats grid mejorado */
     .stats-grid {
       display: flex;
       flex-wrap: wrap;
@@ -269,7 +194,6 @@
       flex: 1;
       min-width: 140px;
       text-align: center;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
       border: 1px solid #eef2f7;
     }
 
@@ -279,19 +203,8 @@
       color: #1f5e7e;
     }
 
-    .texto-verde {
-      color: #2b7a4b;
-    }
-
-    .texto-rojo {
-      color: #dc3545;
-    }
-
     hr {
       margin: 12px 0;
-      border: 0;
-      height: 1px;
-      background: #dee4e9;
     }
 
     .modal {
@@ -305,64 +218,14 @@
       justify-content: center;
       align-items: center;
       z-index: 1000;
-      padding: 16px;
     }
 
     .modal-contenido {
       background: white;
       border-radius: 24px;
       padding: 20px;
-      width: 100%;
-      max-width: 450px;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-campo {
-      margin-bottom: 16px;
-    }
-
-    .modal-campo label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #4a6f7e;
-      margin-bottom: 6px;
-    }
-
-    .modal-campo input, .modal-campo textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid #cbd5e1;
-      font-size: 0.9rem;
-    }
-
-    .modal-botones {
-      display: flex;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .modal-botones button {
-      flex: 1;
-    }
-
-    .alerta {
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
-      padding: 12px;
-      border-radius: 14px;
-      margin-bottom: 12px;
-      font-size: 0.75rem;
-    }
-
-    .tutorial {
-      background: #e8f0fe;
-      padding: 12px;
-      border-radius: 16px;
-      margin-top: 12px;
-      font-size: 0.7rem;
+      width: 90%;
+      max-width: 400px;
     }
 
     footer {
@@ -370,125 +233,106 @@
       font-size: 0.6rem;
       color: #7c8f9a;
       margin-top: 16px;
-      padding: 12px;
-    }
-
-    .grupo-botones {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
     }
   </style>
 </head>
 <body>
 <div class="container">
-  
   <div class="header">
     <div class="logo">🚕</div>
     <h1>Taxi Control Pro</h1>
-    <div class="version">versión 2.0</div>
-    <div class="subtitulo">Control total de viajes · GNC · NAFTA · Estadísticas completas</div>
+    <p style="color:#5f7d8c; font-size:0.75rem;">Control total de viajes · GNC · NAFTA</p>
   </div>
 
-  <div id="alertaNuevoMes" class="alerta" style="display:none;"></div>
-
-  <!-- Botones exportación -->
-  <div class="card">
-    <div class="grupo-botones">
-      <button id="btnExportarMes" class="btn-google" style="flex:1;">📤 Exportar este mes</button>
-      <button id="btnExportarTodo" class="btn-google" style="background:#34a853; flex:1;">📤 Exportar todo</button>
-    </div>
-    
-    <div class="tutorial">
-      <strong>📱 Taxi Control Pro</strong><br>
-      ✏️ Presiona <strong>Editar</strong> para modificar cualquier registro.<br>
-      📤 Exporta a CSV y abre en <strong>Google Sheets</strong> o Excel.
-    </div>
-  </div>
-
-  <!-- Formulario viajes -->
   <div class="card">
     <h2>📝 Nuevo viaje</h2>
     <div class="form-row">
-      <div class="campo"><label>📅 Fecha</label><input type="date" id="fechaViaje" required></div>
-      <div class="campo"><label>📍 Origen/Destino</label><input type="text" id="origen" placeholder="Ej: Centro/Urquiza"></div>
-      <div class="campo"><label>💰 Monto ($)</label><input type="number" id="montoViaje" step="0.01" placeholder="0.00"></div>
+      <div class="campo">
+        <label>📅 Fecha</label>
+        <input type="date" id="fechaViaje">
+      </div>
+      <div class="campo">
+        <label>📍 Origen</label>
+        <input type="text" id="origen" placeholder="Ej: Centro">
+      </div>
+      <div class="campo">
+        <label>💰 Monto ($)</label>
+        <input type="number" id="montoViaje" step="0.01" placeholder="0.00">
+      </div>
     </div>
-    <button id="btnAgregarViaje" style="width:100%;">➕ Agregar viaje</button>
+    <button id="btnAgregarViaje">➕ Agregar viaje</button>
 
     <hr>
 
     <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px;">
       <div style="flex:1; background:#f4faf2; border-radius:16px; padding:12px;">
         <span class="badge-gnc">🟢 GNC</span>
-        <div class="form-row" style="margin-top:8px;">
-          <div class="campo"><label>Fecha</label><input type="date" id="fechaGNC"></div>
-          <div class="campo"><label>Importe ($)</label><input type="number" id="montoGNC" step="0.01"></div>
+        <div style="margin-top:8px;">
+          <input type="date" id="fechaGNC" style="width:100%; padding:10px; margin-bottom:8px; border-radius:14px; border:1px solid #ccc;">
+          <input type="number" id="montoGNC" step="0.01" placeholder="Importe ($)" style="width:100%; padding:10px; margin-bottom:8px; border-radius:14px; border:1px solid #ccc;">
+          <input type="text" id="notaGNC" placeholder="Nota" style="width:100%; padding:10px; border-radius:14px; border:1px solid #ccc;">
         </div>
-        <div class="campo"><label>Nota</label><input type="text" id="notaGNC" placeholder="Ej: 1ra carga"></div>
         <button id="btnAgregarGNC" style="background:#3a7b4a; width:100%; margin-top:8px;">➕ GNC</button>
       </div>
       
       <div style="flex:1; background:#fef5ea; border-radius:16px; padding:12px;">
         <span class="badge-nafta">⛽ NAFTA</span>
-        <div class="form-row" style="margin-top:8px;">
-          <div class="campo"><label>Fecha</label><input type="date" id="fechaNafta"></div>
-          <div class="campo"><label>Importe ($)</label><input type="number" id="montoNafta" step="0.01"></div>
+        <div style="margin-top:8px;">
+          <input type="date" id="fechaNafta" style="width:100%; padding:10px; margin-bottom:8px; border-radius:14px; border:1px solid #ccc;">
+          <input type="number" id="montoNafta" step="0.01" placeholder="Importe ($)" style="width:100%; padding:10px; margin-bottom:8px; border-radius:14px; border:1px solid #ccc;">
+          <input type="text" id="notaNafta" placeholder="Nota" style="width:100%; padding:10px; border-radius:14px; border:1px solid #ccc;">
         </div>
-        <div class="campo"><label>Nota</label><input type="text" id="notaNafta" placeholder="Ej: Estación ACA"></div>
         <button id="btnAgregarNafta" style="background:#b8682e; width:100%; margin-top:8px;">➕ Nafta</button>
       </div>
     </div>
   </div>
 
-  <!-- Filtro y listados -->
   <div class="card">
     <div class="filtro-bar">
-      <select id="selectorMes" class="selector-mes"></select>
+      <select id="selectorMes" class="selector-mes">
+        <option value="all">📆 Todos los meses</option>
+      </select>
       <button id="btnMostrarTodo" style="background:#b0c4ce; padding:10px 16px;">Mostrar todo</button>
     </div>
 
-    <!-- RESUMEN CHICO MEJORADO - AHORA CON MÁS DATOS -->
     <div class="resumen-chico" id="totalRapido">
-      <div class="fila"><span class="label">💰 Ingresos:</span><span class="valor">-</span></div>
-      <div class="fila"><span class="label">🟢 GNC:</span><span class="valor">-</span></div>
-      <div class="fila"><span class="label">⛽ NAFTA:</span><span class="valor">-</span></div>
-      <div class="fila"><span class="label">📊 Total Gastos:</span><span class="valor">-</span></div>
-      <div class="fila"><span class="label">📈 Ganancia Neta:</span><span class="valor ganancia">-</span></div>
-      <div class="fila"><span class="label">🚕 Viajes:</span><span class="valor">-</span></div>
-      <div class="fila"><span class="label">⛽ Total Cargas:</span><span class="valor">-</span></div>
-      <div class="fila"><span class="label">📊 Promedio por viaje:</span><span class="valor">-</span></div>
+      <div class="fila"><span>💰 Ingresos:</span><span id="ingresosValor">$0</span></div>
+      <div class="fila"><span>🟢 GNC:</span><span id="gncValor">$0</span></div>
+      <div class="fila"><span>⛽ NAFTA:</span><span id="naftaValor">$0</span></div>
+      <div class="fila"><span>📊 Total Gastos:</span><span id="gastosValor">$0</span></div>
+      <div class="fila"><span>📈 Ganancia Neta:</span><span id="gananciaValor">$0</span></div>
+      <div class="fila"><span>🚕 Viajes:</span><span id="viajesCantidad">0</span></div>
+      <div class="fila"><span>⛽ Cargas:</span><span id="cargasCantidad">0</span></div>
+      <div class="fila"><span>📊 Promedio/viaje:</span><span id="promedioValor">$0</span></div>
     </div>
 
-    <h3>📋 Viajes</h3>
+    <h2>📋 Viajes</h2>
     <div class="tabla-wrapper">
       <table id="tablaViajes">
         <thead><tr><th>Fecha</th><th>Origen</th><th>Monto</th><th></th></tr></thead>
-        <tbody id="cuerpoViajes"></tbody>
+        <tbody id="cuerpoViajes"><tr><td colspan="4">Sin viajes</td></tr></tbody>
       </table>
     </div>
 
-    <h3>🟢 GNC</h3>
+    <h2>🟢 GNC</h2>
     <div class="tabla-wrapper">
       <table id="tablaGNC">
         <thead><tr><th>Fecha</th><th>Importe</th><th>Nota</th><th></th></tr></thead>
-        <tbody id="cuerpoGNC"></tbody>
+        <tbody id="cuerpoGNC"><tr><td colspan="4">Sin GNC</td></tr></tbody>
       </table>
     </div>
 
-    <h3>⛽ NAFTA</h3>
+    <h2>⛽ NAFTA</h2>
     <div class="tabla-wrapper">
       <table id="tablaNafta">
         <thead><tr><th>Fecha</th><th>Importe</th><th>Nota</th><th></th></tr></thead>
-        <tbody id="cuerpoNafta"></tbody>
+        <tbody id="cuerpoNafta"><tr><td colspan="4">Sin NAFTA</td></tr></tbody>
       </table>
     </div>
   </div>
 
-  <!-- Resumen mensual mejorado -->
   <div class="card">
-    <h2>📊 Resumen completo del mes</h2>
+    <h2>📊 Resumen del mes</h2>
     <div id="resumenMensual" class="stats-grid"></div>
     <div style="margin-top:12px; background:#f0f4f8; border-radius:14px; padding:12px;">
       <strong>📌 Resumen de HOY:</strong><br>
@@ -497,55 +341,67 @@
   </div>
   
   <footer>
-    <strong>Taxi Control Pro</strong> · Datos guardados automáticamente<br>
-    ✏️ Edita cualquier registro · 📤 Exporta a Excel/Google Sheets
+    Taxi Control Pro · Datos guardados automáticamente
   </footer>
 </div>
 
-<!-- Modal de edición -->
 <div id="modalEditar" class="modal">
   <div class="modal-contenido">
     <h3 id="modalTitulo">✏️ Editar registro</h3>
     <div id="modalCampos"></div>
-    <div class="modal-botones">
-      <button id="btnGuardarEdicion" style="background:#2b6e3c;">💾 Guardar</button>
-      <button id="btnCancelarEdicion" style="background:#aaa;">Cancelar</button>
+    <div style="display: flex; gap: 12px; margin-top: 20px;">
+      <button id="btnGuardarEdicion" style="background:#2b6e3c; flex:1;">Guardar</button>
+      <button id="btnCancelarEdicion" style="background:#aaa; flex:1;">Cancelar</button>
     </div>
   </div>
 </div>
 
 <script>
-  // ========== DATOS ==========
+(function() {
   let viajes = [];
   let gastosGNC = [];
   let gastosNafta = [];
   let mesFiltro = "all";
   let itemEditando = null;
 
-  const STORAGE_VIAJES = "taxi_control_pro_viajes";
-  const STORAGE_GNC = "taxi_control_pro_gnc";
-  const STORAGE_NAFTA = "taxi_control_pro_nafta";
-  const ULTIMO_MES_KEY = "taxi_control_pro_ultimo_mes";
+  const STORAGE_VIAJES = "tcp_viajes";
+  const STORAGE_GNC = "tcp_gnc";
+  const STORAGE_NAFTA = "tcp_nafta";
 
-  function hoyISO() { return new Date().toISOString().split('T')[0]; }
-  function mesActual() { return new Date().toISOString().slice(0,7); }
+  function hoyISO() {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  function mesActual() {
+    return new Date().toISOString().slice(0,7);
+  }
 
   function cargarDatos() {
     const v = localStorage.getItem(STORAGE_VIAJES);
-    viajes = v ? JSON.parse(v) : [
-      { id: Date.now()+1, fecha: hoyISO(), origen: "Centro", monto: 450 },
-      { id: Date.now()+2, fecha: hoyISO(), origen: "Aeropuerto", monto: 780 }
-    ];
     const g = localStorage.getItem(STORAGE_GNC);
-    gastosGNC = g ? JSON.parse(g) : [
-      { id: Date.now()+10, fecha: hoyISO(), monto: 1250, nota: "1ra carga GNC" }
-    ];
     const n = localStorage.getItem(STORAGE_NAFTA);
-    gastosNafta = n ? JSON.parse(n) : [
-      { id: Date.now()+20, fecha: hoyISO(), monto: 2800, nota: "Nafta súper" }
-    ];
+    
+    viajes = v ? JSON.parse(v) : [];
+    gastosGNC = g ? JSON.parse(g) : [];
+    gastosNafta = n ? JSON.parse(n) : [];
+    
+    if(viajes.length === 0) {
+      viajes = [
+        { id: Date.now()+1, fecha: hoyISO(), origen: "Centro", monto: 450 },
+        { id: Date.now()+2, fecha: hoyISO(), origen: "Aeropuerto", monto: 780 }
+      ];
+    }
+    if(gastosGNC.length === 0) {
+      gastosGNC = [
+        { id: Date.now()+10, fecha: hoyISO(), monto: 1250, nota: "1ra carga GNC" }
+      ];
+    }
+    if(gastosNafta.length === 0) {
+      gastosNafta = [
+        { id: Date.now()+20, fecha: hoyISO(), monto: 2800, nota: "Nafta super" }
+      ];
+    }
     guardarTodo();
-    verificarCambioMes();
   }
 
   function guardarTodo() {
@@ -554,32 +410,17 @@
     localStorage.setItem(STORAGE_NAFTA, JSON.stringify(gastosNafta));
   }
 
-  function verificarCambioMes() {
-    const mesActualStr = mesActual();
-    const ultimoMes = localStorage.getItem(ULTIMO_MES_KEY);
-    if (!ultimoMes) {
-      localStorage.setItem(ULTIMO_MES_KEY, mesActualStr);
-    } else if (ultimoMes !== mesActualStr) {
-      const [year, month] = mesActualStr.split('-');
-      const nombreMes = new Date(parseInt(year), parseInt(month)-1, 1).toLocaleString('es', { month: 'long' });
-      const alerta = document.getElementById("alertaNuevoMes");
-      alerta.style.display = "block";
-      alerta.innerHTML = `📢 <strong>¡Nuevo mes!</strong> Es ${nombreMes} ${year}. Exporta los datos del mes anterior a Google Sheets.`;
-      localStorage.setItem(ULTIMO_MES_KEY, mesActualStr);
-      setTimeout(() => { alerta.style.display = "none"; }, 6000);
-    }
+  function generarId() {
+    return Date.now() + Math.random() * 10000;
   }
 
-  function generarId() { return Date.now() + Math.random() * 10000; }
-
-  // Agregar funciones
   function agregarViaje() {
     const fecha = document.getElementById("fechaViaje").value;
     const origen = document.getElementById("origen").value.trim();
     const monto = parseFloat(document.getElementById("montoViaje").value);
-    if(!fecha) { alert("📅 Selecciona una fecha"); return; }
-    if(isNaN(monto) || monto<=0) { alert("💰 Ingresa un monto válido"); return; }
-    viajes.push({ id: generarId(), fecha, origen: origen||"Sin detalle", monto });
+    if(!fecha) { alert("Selecciona una fecha"); return; }
+    if(isNaN(monto) || monto <= 0) { alert("Monto valido"); return; }
+    viajes.push({ id: generarId(), fecha: fecha, origen: origen || "Sin detalle", monto: monto });
     guardarTodo();
     document.getElementById("origen").value = "";
     document.getElementById("montoViaje").value = "";
@@ -590,8 +431,8 @@
     let fecha = document.getElementById("fechaGNC").value || document.getElementById("fechaViaje").value || hoyISO();
     const monto = parseFloat(document.getElementById("montoGNC").value);
     const nota = document.getElementById("notaGNC").value.trim();
-    if(isNaN(monto) || monto<=0) { alert("⛽ Ingresa monto de GNC"); return; }
-    gastosGNC.push({ id: generarId(), fecha, monto, nota: nota||"Carga GNC" });
+    if(isNaN(monto) || monto <= 0) { alert("Monto de GNC valido"); return; }
+    gastosGNC.push({ id: generarId(), fecha: fecha, monto: monto, nota: nota || "Carga GNC" });
     guardarTodo();
     document.getElementById("montoGNC").value = "";
     document.getElementById("notaGNC").value = "";
@@ -603,8 +444,8 @@
     let fecha = document.getElementById("fechaNafta").value || document.getElementById("fechaViaje").value || hoyISO();
     const monto = parseFloat(document.getElementById("montoNafta").value);
     const nota = document.getElementById("notaNafta").value.trim();
-    if(isNaN(monto) || monto<=0) { alert("⛽ Ingresa monto de NAFTA"); return; }
-    gastosNafta.push({ id: generarId(), fecha, monto, nota: nota||"Carga Nafta" });
+    if(isNaN(monto) || monto <= 0) { alert("Monto de NAFTA valido"); return; }
+    gastosNafta.push({ id: generarId(), fecha: fecha, monto: monto, nota: nota || "Carga Nafta" });
     guardarTodo();
     document.getElementById("montoNafta").value = "";
     document.getElementById("notaNafta").value = "";
@@ -612,279 +453,276 @@
     actualizarTodo();
   }
 
-  // Eliminar
-  function eliminarViaje(id) { if(confirm("¿Eliminar este viaje?")) { viajes = viajes.filter(v=>v.id!==id); guardarTodo(); actualizarTodo(); } }
-  function eliminarGNC(id) { if(confirm("¿Eliminar gasto GNC?")) { gastosGNC = gastosGNC.filter(g=>g.id!==id); guardarTodo(); actualizarTodo(); } }
-  function eliminarNafta(id) { if(confirm("¿Eliminar gasto NAFTA?")) { gastosNafta = gastosNafta.filter(n=>n.id!==id); guardarTodo(); actualizarTodo(); } }
-
-  // Editar modal
-  function abrirEditor(tipo, id) {
-    let item;
-    let titulo = "";
-    
-    if (tipo === 'viaje') {
-      item = viajes.find(v => v.id === id);
-      titulo = "✏️ Editar viaje";
-    } else if (tipo === 'gnc') {
-      item = gastosGNC.find(g => g.id === id);
-      titulo = "✏️ Editar gasto GNC";
-    } else {
-      item = gastosNafta.find(n => n.id === id);
-      titulo = "✏️ Editar gasto NAFTA";
+  function eliminarViaje(id) {
+    if(confirm("Eliminar este viaje?")) {
+      viajes = viajes.filter(function(v) { return v.id !== id; });
+      guardarTodo();
+      actualizarTodo();
     }
-    
-    if (!item) return;
-    itemEditando = { tipo, id, datos: { ...item } };
-    
-    const modal = document.getElementById("modalEditar");
-    const modalTitulo = document.getElementById("modalTitulo");
-    const modalCampos = document.getElementById("modalCampos");
-    
-    modalTitulo.innerText = titulo;
-    
-    if (tipo === 'viaje') {
-      modalCampos.innerHTML = `
-        <div class="modal-campo">
-          <label>📅 Fecha (YYYY-MM-DD)</label>
-          <input type="date" id="editFecha" value="${item.fecha}">
-        </div>
-        <div class="modal-campo">
-          <label>📍 Origen / Destino</label>
-          <input type="text" id="editOrigen" value="${escapeHtml(item.origen)}">
-        </div>
-        <div class="modal-campo">
-          <label>💰 Monto ($)</label>
-          <input type="number" step="0.01" id="editMonto" value="${item.monto}">
-        </div>
-      `;
-    } else {
-      modalCampos.innerHTML = `
-        <div class="modal-campo">
-          <label>📅 Fecha</label>
-          <input type="date" id="editFecha" value="${item.fecha}">
-        </div>
-        <div class="modal-campo">
-          <label>💰 Importe ($)</label>
-          <input type="number" step="0.01" id="editMonto" value="${item.monto}">
-        </div>
-        <div class="modal-campo">
-          <label>📌 Nota</label>
-          <textarea id="editNota" rows="2">${escapeHtml(item.nota)}</textarea>
-        </div>
-      `;
-    }
-    modal.style.display = "flex";
   }
 
-  function guardarEdicionCompleta() {
-    if (!itemEditando) return;
-    
-    const nuevaFecha = document.getElementById("editFecha").value;
-    const nuevoMonto = parseFloat(document.getElementById("editMonto").value);
-    
-    if (!nuevaFecha) { alert("La fecha es obligatoria"); return; }
-    if (isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("El monto debe ser mayor a 0"); return; }
-    
-    if (itemEditando.tipo === 'viaje') {
-      const nuevoOrigen = document.getElementById("editOrigen").value.trim() || "Sin detalle";
-      const index = viajes.findIndex(v => v.id === itemEditando.id);
-      if (index !== -1) {
-        viajes[index] = { ...viajes[index], fecha: nuevaFecha, origen: nuevoOrigen, monto: nuevoMonto };
-      }
-    } else if (itemEditando.tipo === 'gnc') {
-      const nuevaNota = document.getElementById("editNota").value.trim() || "Carga GNC";
-      const index = gastosGNC.findIndex(g => g.id === itemEditando.id);
-      if (index !== -1) {
-        gastosGNC[index] = { ...gastosGNC[index], fecha: nuevaFecha, monto: nuevoMonto, nota: nuevaNota };
-      }
-    } else if (itemEditando.tipo === 'nafta') {
-      const nuevaNota = document.getElementById("editNota").value.trim() || "Carga Nafta";
-      const index = gastosNafta.findIndex(n => n.id === itemEditando.id);
-      if (index !== -1) {
-        gastosNafta[index] = { ...gastosNafta[index], fecha: nuevaFecha, monto: nuevoMonto, nota: nuevaNota };
-      }
+  function eliminarGNC(id) {
+    if(confirm("Eliminar gasto GNC?")) {
+      gastosGNC = gastosGNC.filter(function(g) { return g.id !== id; });
+      guardarTodo();
+      actualizarTodo();
     }
-    
-    guardarTodo();
-    cerrarModal();
-    actualizarTodo();
   }
 
-  function cerrarModal() {
-    document.getElementById("modalEditar").style.display = "none";
-    itemEditando = null;
+  function eliminarNafta(id) {
+    if(confirm("Eliminar gasto NAFTA?")) {
+      gastosNafta = gastosNafta.filter(function(n) { return n.id !== id; });
+      guardarTodo();
+      actualizarTodo();
+    }
   }
 
   function filtrarPorMes(items) {
-    if(mesFiltro==="all") return items;
-    return items.filter(i=>i.fecha && i.fecha.startsWith(mesFiltro));
+    if(mesFiltro === "all") return items;
+    return items.filter(function(i) { return i.fecha && i.fecha.startsWith(mesFiltro); });
   }
 
-  function escapeHtml(s) { 
-    if(!s) return "";
-    return String(s).replace(/[&<>]/g, m=> m==='&'?'&amp;': m==='<'?'&lt;':'&gt;'); 
+  function escapeHtml(str) {
+    if(!str) return "";
+    return str.replace(/[&<>]/g, function(m) {
+      if(m === '&') return '&amp;';
+      if(m === '<') return '&lt;';
+      return '&gt;';
+    });
   }
 
   function renderizarTablas() {
-    const viajesF = filtrarPorMes(viajes);
-    const gncF = filtrarPorMes(gastosGNC);
-    const naftaF = filtrarPorMes(gastosNafta);
+    var viajesF = filtrarPorMes(viajes);
+    var gncF = filtrarPorMes(gastosGNC);
+    var naftaF = filtrarPorMes(gastosNafta);
 
-    document.getElementById("cuerpoViajes").innerHTML = viajesF.length ? viajesF.map(v=>`
-      <tr><td>${v.fecha}</td><td>${escapeHtml(v.origen)}</td><td>$${v.monto.toFixed(2)}</td>
-      <td class="acciones"><button class="btn-editar" onclick="abrirEditor('viaje', ${v.id})">✏️</button>
-      <button class="btn-eliminar" onclick="eliminarViaje(${v.id})">🗑️</button></td></tr>
-    `).join('') : '<tr><td colspan="4">Sin viajes</td></tr>';
+    var tbodyViajes = document.getElementById("cuerpoViajes");
+    if(viajesF.length === 0) {
+      tbodyViajes.innerHTML = '<tr><td colspan="4">Sin viajes</td></tr>';
+    } else {
+      var html = "";
+      for(var i = 0; i < viajesF.length; i++) {
+        var v = viajesF[i];
+        html += '<tr>' +
+          '<td>' + v.fecha + '</td>' +
+          '<td>' + escapeHtml(v.origen) + '</td>' +
+          '<td>$' + v.monto.toFixed(2) + '</td>' +
+          '<td><button class="btn-editar" onclick="window.editarViaje(' + v.id + ')">Editar</button> ' +
+          '<button class="btn-eliminar" onclick="window.eliminarViaje(' + v.id + ')">Eliminar</button></td>' +
+          '</tr>';
+      }
+      tbodyViajes.innerHTML = html;
+    }
 
-    document.getElementById("cuerpoGNC").innerHTML = gncF.length ? gncF.map(g=>`
-      <tr><td>${g.fecha}</td><td>$${g.monto.toFixed(2)}</td><td>${escapeHtml(g.nota)}</td>
-      <td class="acciones"><button class="btn-editar" onclick="abrirEditor('gnc', ${g.id})">✏️</button>
-      <button class="btn-eliminar" onclick="eliminarGNC(${g.id})">🗑️</button></td></tr>
-    `).join('') : '<tr><td colspan="4">Sin GNC</td></tr>';
+    var tbodyGNC = document.getElementById("cuerpoGNC");
+    if(gncF.length === 0) {
+      tbodyGNC.innerHTML = '<tr><td colspan="4">Sin GNC</td></tr>';
+    } else {
+      var htmlG = "";
+      for(var j = 0; j < gncF.length; j++) {
+        var g = gncF[j];
+        htmlG += '<tr>' +
+          '<td>' + g.fecha + '</td>' +
+          '<td>$' + g.monto.toFixed(2) + '</td>' +
+          '<td>' + escapeHtml(g.nota) + '</td>' +
+          '<td><button class="btn-editar" onclick="window.editarGNC(' + g.id + ')">Editar</button> ' +
+          '<button class="btn-eliminar" onclick="window.eliminarGNC(' + g.id + ')">Eliminar</button></td>' +
+          '</tr>';
+      }
+      tbodyGNC.innerHTML = htmlG;
+    }
 
-    document.getElementById("cuerpoNafta").innerHTML = naftaF.length ? naftaF.map(n=>`
-      <tr><td>${n.fecha}</td><td>$${n.monto.toFixed(2)}</td><td>${escapeHtml(n.nota)}</td>
-      <td class="acciones"><button class="btn-editar" onclick="abrirEditor('nafta', ${n.id})">✏️</button>
-      <button class="btn-eliminar" onclick="eliminarNafta(${n.id})">🗑️</button></td></tr>
-    `).join('') : '<tr><td colspan="4">Sin NAFTA</td></tr>';
+    var tbodyNafta = document.getElementById("cuerpoNafta");
+    if(naftaF.length === 0) {
+      tbodyNafta.innerHTML = '<tr><td colspan="4">Sin NAFTA</td></tr>';
+    } else {
+      var htmlN = "";
+      for(var k = 0; k < naftaF.length; k++) {
+        var n = naftaF[k];
+        htmlN += '<tr>' +
+          '<td>' + n.fecha + '</td>' +
+          '<td>$' + n.monto.toFixed(2) + '</td>' +
+          '<td>' + escapeHtml(n.nota) + '</td>' +
+          '<td><button class="btn-editar" onclick="window.editarNafta(' + n.id + ')">Editar</button> ' +
+          '<button class="btn-eliminar" onclick="window.eliminarNafta(' + n.id + ')">Eliminar</button></td>' +
+          '</tr>';
+      }
+      tbodyNafta.innerHTML = htmlN;
+    }
   }
 
-  // Exportar CSV
-  function exportarCSV(datos, nombreArchivo) {
-    if(datos.length === 0) { alert("No hay datos para exportar"); return; }
-    let contenido = "Tipo,Fecha,Concepto/Origen,Monto ($),Nota\n";
-    datos.forEach(item => {
-      const fila = [item.tipo, item.fecha, `"${String(item.concepto).replace(/"/g, '""')}"`, item.monto.toFixed(2), `"${String(item.nota).replace(/"/g, '""')}"`].join(',');
-      contenido += fila + '\n';
-    });
-    const blob = new Blob(["\uFEFF" + contenido], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.href = url;
-    link.setAttribute('download', `${nombreArchivo}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-    alert("✅ Archivo descargado. Ábrelo con Google Sheets.");
+  function editarViaje(id) {
+    var viaje = null;
+    for(var i = 0; i < viajes.length; i++) {
+      if(viajes[i].id === id) { viaje = viajes[i]; break; }
+    }
+    if(!viaje) return;
+    var nuevaFecha = prompt("Nueva fecha (YYYY-MM-DD):", viaje.fecha);
+    if(!nuevaFecha) return;
+    var nuevoOrigen = prompt("Nuevo origen:", viaje.origen);
+    var nuevoMonto = parseFloat(prompt("Nuevo monto:", viaje.monto));
+    if(isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("Monto invalido"); return; }
+    viaje.fecha = nuevaFecha;
+    viaje.origen = nuevoOrigen || viaje.origen;
+    viaje.monto = nuevoMonto;
+    guardarTodo();
+    actualizarTodo();
   }
 
-  function exportarMesActual() {
-    let mesSeleccionado = mesFiltro === "all" ? mesActual() : mesFiltro;
-    const viajesMes = viajes.filter(v=>v.fecha.startsWith(mesSeleccionado)).map(v=>({ tipo:"VIAJE", fecha:v.fecha, concepto:v.origen, monto:v.monto, nota:"" }));
-    const gncMes = gastosGNC.filter(g=>g.fecha.startsWith(mesSeleccionado)).map(g=>({ tipo:"GNC", fecha:g.fecha, concepto:"GNC", monto:g.monto, nota:g.nota }));
-    const naftaMes = gastosNafta.filter(n=>n.fecha.startsWith(mesSeleccionado)).map(n=>({ tipo:"NAFTA", fecha:n.fecha, concepto:"NAFTA", monto:n.monto, nota:n.nota }));
-    const datos = [...viajesMes, ...gncMes, ...naftaMes].sort((a,b)=>a.fecha.localeCompare(b.fecha));
-    if(datos.length===0) { alert(`No hay registros en ${mesSeleccionado}`); return; }
-    exportarCSV(datos, `TaxiControlPro_${mesSeleccionado}`);
+  function editarGNC(id) {
+    var gasto = null;
+    for(var i = 0; i < gastosGNC.length; i++) {
+      if(gastosGNC[i].id === id) { gasto = gastosGNC[i]; break; }
+    }
+    if(!gasto) return;
+    var nuevaFecha = prompt("Nueva fecha:", gasto.fecha);
+    if(!nuevaFecha) return;
+    var nuevoMonto = parseFloat(prompt("Nuevo monto:", gasto.monto));
+    if(isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("Monto invalido"); return; }
+    var nuevaNota = prompt("Nueva nota:", gasto.nota);
+    gasto.fecha = nuevaFecha;
+    gasto.monto = nuevoMonto;
+    gasto.nota = nuevaNota || gasto.nota;
+    guardarTodo();
+    actualizarTodo();
   }
 
-  function exportarTodo() {
-    const viajesExp = viajes.map(v=>({ tipo:"VIAJE", fecha:v.fecha, concepto:v.origen, monto:v.monto, nota:"" }));
-    const gncExp = gastosGNC.map(g=>({ tipo:"GNC", fecha:g.fecha, concepto:"GNC", monto:g.monto, nota:g.nota }));
-    const naftaExp = gastosNafta.map(n=>({ tipo:"NAFTA", fecha:n.fecha, concepto:"NAFTA", monto:n.monto, nota:n.nota }));
-    const todos = [...viajesExp, ...gncExp, ...naftaExp].sort((a,b)=>a.fecha.localeCompare(b.fecha));
-    exportarCSV(todos, `TaxiControlPro_todos_registros`);
+  function editarNafta(id) {
+    var gasto = null;
+    for(var i = 0; i < gastosNafta.length; i++) {
+      if(gastosNafta[i].id === id) { gasto = gastosNafta[i]; break; }
+    }
+    if(!gasto) return;
+    var nuevaFecha = prompt("Nueva fecha:", gasto.fecha);
+    if(!nuevaFecha) return;
+    var nuevoMonto = parseFloat(prompt("Nuevo monto:", gasto.monto));
+    if(isNaN(nuevoMonto) || nuevoMonto <= 0) { alert("Monto invalido"); return; }
+    var nuevaNota = prompt("Nueva nota:", gasto.nota);
+    gasto.fecha = nuevaFecha;
+    gasto.monto = nuevoMonto;
+    gasto.nota = nuevaNota || gasto.nota;
+    guardarTodo();
+    actualizarTodo();
   }
 
-  // ACTUALIZAR RESÚMENES COMPLETOS
   function actualizarResumenes() {
-    let mesMostrar = mesFiltro === "all" ? mesActual() : mesFiltro;
-    const viajesM = viajes.filter(v=>v.fecha.startsWith(mesMostrar));
-    const gncM = gastosGNC.filter(g=>g.fecha.startsWith(mesMostrar));
-    const naftaM = gastosNafta.filter(n=>n.fecha.startsWith(mesMostrar));
+    var mesMostrar = mesFiltro === "all" ? mesActual() : mesFiltro;
+    var viajesM = viajes.filter(function(v) { return v.fecha && v.fecha.startsWith(mesMostrar); });
+    var gncM = gastosGNC.filter(function(g) { return g.fecha && g.fecha.startsWith(mesMostrar); });
+    var naftaM = gastosNafta.filter(function(n) { return n.fecha && n.fecha.startsWith(mesMostrar); });
     
-    const ingresos = viajesM.reduce((s,v)=>s+v.monto,0);
-    const gastosGNC_M = gncM.reduce((s,g)=>s+g.monto,0);
-    const gastosNafta_M = naftaM.reduce((s,n)=>s+n.monto,0);
-    const totalGastos = gastosGNC_M + gastosNafta_M;
-    const ganancia = ingresos - totalGastos;
-    const cantidadViajes = viajesM.length;
-    const cantidadCargas = gncM.length + naftaM.length;
-    const promedioViaje = cantidadViajes > 0 ? ingresos / cantidadViajes : 0;
+    var ingresos = 0;
+    for(var i = 0; i < viajesM.length; i++) ingresos += viajesM[i].monto;
+    var gastosGNC_M = 0;
+    for(var j = 0; j < gncM.length; j++) gastosGNC_M += gncM[j].monto;
+    var gastosNafta_M = 0;
+    for(var k = 0; k < naftaM.length; k++) gastosNafta_M += naftaM[k].monto;
+    var totalGastos = gastosGNC_M + gastosNafta_M;
+    var ganancia = ingresos - totalGastos;
+    var cantidadViajes = viajesM.length;
+    var cantidadCargas = gncM.length + naftaM.length;
+    var promedioViaje = cantidadViajes > 0 ? ingresos / cantidadViajes : 0;
     
-    const [year,month] = mesMostrar.split('-');
-    const nomMes = new Date(parseInt(year), parseInt(month)-1, 1).toLocaleString('es', { month: 'long' });
+    var yearMonth = mesMostrar.split('-');
+    var year = yearMonth[0];
+    var month = yearMonth[1];
+    var nomMes = new Date(parseInt(year), parseInt(month)-1, 1).toLocaleString('es', { month: 'long' });
     
-    // Resumen mensual grande
-    document.getElementById("resumenMensual").innerHTML = `
-      <div class="stat-card"><strong>📆 ${nomMes} ${year}</strong><div class="numero-grande">$${ingresos.toFixed(2)}</div><div>Ingresos</div></div>
-      <div class="stat-card"><span class="badge-gnc">GNC</span><div class="numero-grande">$${gastosGNC_M.toFixed(2)}</div></div>
-      <div class="stat-card"><span class="badge-nafta">NAFTA</span><div class="numero-grande">$${gastosNafta_M.toFixed(2)}</div></div>
-      <div class="stat-card"><strong>📈 Ganancia</strong><div class="numero-grande ${ganancia>=0?'texto-verde':'texto-rojo'}">$${ganancia.toFixed(2)}</div></div>
-      <div class="stat-card"><strong>🚕 Viajes</strong><div class="numero-grande">${cantidadViajes}</div></div>
-      <div class="stat-card"><strong>⛽ Cargas</strong><div class="numero-grande">${cantidadCargas}</div></div>
-      <div class="stat-card"><strong>📊 Promedio/viaje</strong><div class="numero-grande">$${promedioViaje.toFixed(2)}</div></div>
-    `;
+    var resumenHTML = '';
+    resumenHTML += '<div class="stat-card"><strong>' + nomMes + ' ' + year + '</strong><div class="numero-grande">$' + ingresos.toFixed(2) + '</div><div>Ingresos</div></div>';
+    resumenHTML += '<div class="stat-card"><span class="badge-gnc">GNC</span><div class="numero-grande">$' + gastosGNC_M.toFixed(2) + '</div></div>';
+    resumenHTML += '<div class="stat-card"><span class="badge-nafta">NAFTA</span><div class="numero-grande">$' + gastosNafta_M.toFixed(2) + '</div></div>';
+    resumenHTML += '<div class="stat-card"><strong>Ganancia</strong><div class="numero-grande">$' + ganancia.toFixed(2) + '</div></div>';
+    resumenHTML += '<div class="stat-card"><strong>Viajes</strong><div class="numero-grande">' + cantidadViajes + '</div></div>';
+    resumenHTML += '<div class="stat-card"><strong>Cargas</strong><div class="numero-grande">' + cantidadCargas + '</div></div>';
+    resumenHTML += '<div class="stat-card"><strong>Promedio</strong><div class="numero-grande">$' + promedioViaje.toFixed(2) + '</div></div>';
+    document.getElementById("resumenMensual").innerHTML = resumenHTML;
 
-    // Resumen chico (barra superior) con más datos
-    const viajesF = filtrarPorMes(viajes);
-    const gncF = filtrarPorMes(gastosGNC);
-    const naftaF = filtrarPorMes(gastosNafta);
-    const ingF = viajesF.reduce((s,v)=>s+v.monto,0);
-    const gastosGNC_F = gncF.reduce((s,g)=>s+g.monto,0);
-    const gastosNafta_F = naftaF.reduce((s,n)=>s+n.monto,0);
-    const totalGastosF = gastosGNC_F + gastosNafta_F;
-    const gananciaF = ingF - totalGastosF;
-    const cantViajesF = viajesF.length;
-    const cantCargasF = gncF.length + naftaF.length;
-    const promedioF = cantViajesF > 0 ? ingF / cantViajesF : 0;
+    var viajesF = filtrarPorMes(viajes);
+    var gncF = filtrarPorMes(gastosGNC);
+    var naftaF = filtrarPorMes(gastosNafta);
+    var ingF = 0;
+    for(var a = 0; a < viajesF.length; a++) ingF += viajesF[a].monto;
+    var gastosGNC_F = 0;
+    for(var b = 0; b < gncF.length; b++) gastosGNC_F += gncF[b].monto;
+    var gastosNafta_F = 0;
+    for(var c = 0; c < naftaF.length; c++) gastosNafta_F += naftaF[c].monto;
+    var totalGastosF = gastosGNC_F + gastosNafta_F;
+    var gananciaF = ingF - totalGastosF;
+    var cantViajesF = viajesF.length;
+    var cantCargasF = gncF.length + naftaF.length;
+    var promedioF = cantViajesF > 0 ? ingF / cantViajesF : 0;
     
-    document.getElementById("totalRapido").innerHTML = `
-      <div class="fila"><span class="label">💰 Ingresos:</span><span class="valor">$${ingF.toFixed(2)}</span></div>
-      <div class="fila"><span class="label">🟢 GNC:</span><span class="valor">$${gastosGNC_F.toFixed(2)}</span></div>
-      <div class="fila"><span class="label">⛽ NAFTA:</span><span class="valor">$${gastosNafta_F.toFixed(2)}</span></div>
-      <div class="fila"><span class="label">📊 Total Gastos:</span><span class="valor">$${totalGastosF.toFixed(2)}</span></div>
-      <div class="fila"><span class="label">📈 Ganancia Neta:</span><span class="valor ${gananciaF>=0?'ganancia':'perdida'}">$${gananciaF.toFixed(2)}</span></div>
-      <div class="fila"><span class="label">🚕 Viajes:</span><span class="valor">${cantViajesF}</span></div>
-      <div class="fila"><span class="label">⛽ Total Cargas:</span><span class="valor">${cantCargasF}</span></div>
-      <div class="fila"><span class="label">📊 Promedio por viaje:</span><span class="valor">$${promedioF.toFixed(2)}</span></div>
-    `;
+    document.getElementById("ingresosValor").innerHTML = '$' + ingF.toFixed(2);
+    document.getElementById("gncValor").innerHTML = '$' + gastosGNC_F.toFixed(2);
+    document.getElementById("naftaValor").innerHTML = '$' + gastosNafta_F.toFixed(2);
+    document.getElementById("gastosValor").innerHTML = '$' + totalGastosF.toFixed(2);
+    document.getElementById("gananciaValor").innerHTML = '$' + gananciaF.toFixed(2);
+    document.getElementById("viajesCantidad").innerHTML = cantViajesF;
+    document.getElementById("cargasCantidad").innerHTML = cantCargasF;
+    document.getElementById("promedioValor").innerHTML = '$' + promedioF.toFixed(2);
 
-    // Resumen de HOY
-    const hoy = hoyISO();
-    const vHoy = viajes.filter(v=>v.fecha===hoy).reduce((s,v)=>s+v.monto,0);
-    const gHoy = gastosGNC.filter(g=>g.fecha===hoy).reduce((s,g)=>s+g.monto,0);
-    const nHoy = gastosNafta.filter(n=>n.fecha===hoy).reduce((s,n)=>s+n.monto,0);
-    const viajesHoy = viajes.filter(v=>v.fecha===hoy).length;
-    const cargasHoy = gastosGNC.filter(g=>g.fecha===hoy).length + gastosNafta.filter(n=>n.fecha===hoy).length;
-    document.getElementById("resumenHoy").innerHTML = `💰 Ingresos: $${vHoy.toFixed(2)} | 🟢 GNC: $${gHoy.toFixed(2)} | ⛽ Nafta: $${nHoy.toFixed(2)} | 📈 Neto: $${(vHoy - gHoy - nHoy).toFixed(2)} | 🚕 ${viajesHoy} viajes | ⛽ ${cargasHoy} cargas`;
+    var hoy = hoyISO();
+    var vHoy = 0;
+    for(var d = 0; d < viajes.length; d++) if(viajes[d].fecha === hoy) vHoy += viajes[d].monto;
+    var gHoy = 0;
+    for(var e = 0; e < gastosGNC.length; e++) if(gastosGNC[e].fecha === hoy) gHoy += gastosGNC[e].monto;
+    var nHoy = 0;
+    for(var f = 0; f < gastosNafta.length; f++) if(gastosNafta[f].fecha === hoy) nHoy += gastosNafta[f].monto;
+    var viajesHoy = 0;
+    for(var g = 0; g < viajes.length; g++) if(viajes[g].fecha === hoy) viajesHoy++;
+    var cargasHoy = 0;
+    for(var h = 0; h < gastosGNC.length; h++) if(gastosGNC[h].fecha === hoy) cargasHoy++;
+    for(var ii = 0; ii < gastosNafta.length; ii++) if(gastosNafta[ii].fecha === hoy) cargasHoy++;
+    document.getElementById("resumenHoy").innerHTML = 'Ingresos: $' + vHoy.toFixed(2) + ' | GNC: $' + gHoy.toFixed(2) + ' | Nafta: $' + nHoy.toFixed(2) + ' | Neto: $' + (vHoy - gHoy - nHoy).toFixed(2) + ' | ' + viajesHoy + ' viajes | ' + cargasHoy + ' cargas';
   }
 
   function actualizarSelector() {
-    const select = document.getElementById("selectorMes");
-    const set = new Set();
-    [...viajes,...gastosGNC,...gastosNafta].forEach(i=>{if(i.fecha?.length>=7) set.add(i.fecha.slice(0,7));});
-    let opts = '<option value="all">📆 Todos los meses</option>';
-    Array.from(set).sort().reverse().forEach(ym=>{
-      const [y,m]=ym.split('-');
-      const nom = new Date(parseInt(y),parseInt(m)-1,1).toLocaleString('es',{month:'long'});
-      opts += `<option value="${ym}">${nom.charAt(0).toUpperCase()+nom.slice(1)} ${y}</option>`;
-    });
+    var select = document.getElementById("selectorMes");
+    var mesesSet = new Set();
+    for(var i = 0; i < viajes.length; i++) if(viajes[i].fecha && viajes[i].fecha.length >= 7) mesesSet.add(viajes[i].fecha.substring(0,7));
+    for(var j = 0; j < gastosGNC.length; j++) if(gastosGNC[j].fecha && gastosGNC[j].fecha.length >= 7) mesesSet.add(gastosGNC[j].fecha.substring(0,7));
+    for(var k = 0; k < gastosNafta.length; k++) if(gastosNafta[k].fecha && gastosNafta[k].fecha.length >= 7) mesesSet.add(gastosNafta[k].fecha.substring(0,7));
+    var mesesArr = Array.from(mesesSet).sort().reverse();
+    var opts = '<option value="all">Todos los meses</option>';
+    for(var m = 0; m < mesesArr.length; m++) {
+      var ym = mesesArr[m];
+      var parts = ym.split('-');
+      var y = parts[0];
+      var mesNum = parseInt(parts[1]);
+      var nom = new Date(y, mesNum-1, 1).toLocaleString('es', { month: 'long' });
+      opts += '<option value="' + ym + '">' + nom.charAt(0).toUpperCase() + nom.slice(1) + ' ' + y + '</option>';
+    }
     select.innerHTML = opts;
     select.value = mesFiltro;
   }
 
-  function actualizarTodo() { renderizarTablas(); actualizarSelector(); actualizarResumenes(); }
+  function actualizarTodo() {
+    renderizarTablas();
+    actualizarSelector();
+    actualizarResumenes();
+  }
 
-  // Inicializar
   function init() {
     cargarDatos();
     if(!document.getElementById("fechaViaje").value) document.getElementById("fechaViaje").value = hoyISO();
     document.getElementById("btnAgregarViaje").onclick = agregarViaje;
     document.getElementById("btnAgregarGNC").onclick = agregarGNC;
     document.getElementById("btnAgregarNafta").onclick = agregarNafta;
-    document.getElementById("selectorMes").onchange = (e)=>{ mesFiltro = e.target.value; actualizarTodo(); };
-    document.getElementById("btnMostrarTodo").onclick = ()=>{ mesFiltro="all"; document.getElementById("selectorMes").value="all"; actualizarTodo(); };
-    document.getElementById("btnExportarMes").onclick = exportarMesActual;
-    document.getElementById("btnExportarTodo").onclick = exportarTodo;
-    document.getElementById("btnGuardarEdicion").onclick = guardarEdicionCompleta;
-    document.getElementById("btnCancelarEdicion").onclick = cerrarModal;
-    window.onclick = (e) => { if(e.target === document.getElementById("modalEditar")) cerrarModal(); };
+    document.getElementById("selectorMes").onchange = function(e) { mesFiltro = e.target.value; actualizarTodo(); };
+    document.getElementById("btnMostrarTodo").onclick = function() { mesFiltro = "all"; document.getElementById("selectorMes").value = "all"; actualizarTodo(); };
     actualizarTodo();
   }
-  
+
+  window.editarViaje = editarViaje;
+  window.editarGNC = editarGNC;
+  window.editarNafta = editarNafta;
+  window.eliminarViaje = eliminarViaje;
+  window.eliminarGNC = eliminarGNC;
+  window.eliminarNafta = eliminarNafta;
+
   init();
+})();
 </script>
 </body>
 </html>

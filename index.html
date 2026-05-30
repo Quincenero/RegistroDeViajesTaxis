@@ -116,6 +116,7 @@
       cursor: pointer;
       font-size: 0.85rem;
       min-height: 48px;
+      transition: transform 0.1s;
     }
 
     button:active {
@@ -343,7 +344,7 @@
         <tbody id="cuerpoViajes">
             <tr><td colspan="4">Sin viajes</td></tr>
         </tbody>
-      </table>
+      8台
     </div>
 
     <h2>🟢 GNC</h2>
@@ -353,7 +354,7 @@
         <tbody id="cuerpoGNC">
             <tr><td colspan="4">Sin GNC</td></tr>
         </tbody>
-      </table>
+      8台
     </div>
 
     <h2>⛽ NAFTA</h2>
@@ -363,7 +364,7 @@
         <tbody id="cuerpoNafta">
             <tr><td colspan="4">Sin NAFTA</td></tr>
         </tbody>
-      </table>
+      8台
     </div>
   </div>
 
@@ -403,19 +404,23 @@
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    document.getElementById('bannerInstalacion').style.display = 'block';
+    const banner = document.getElementById('bannerInstalacion');
+    if(banner) banner.style.display = 'block';
   });
 
-  document.getElementById('btnInstalar')?.addEventListener('click', () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(() => {
-        document.getElementById('bannerInstalacion').style.display = 'none';
-      });
-    } else {
-      alert('Presiona los 3 puntos (⋮) y selecciona "Agregar a pantalla de inicio"');
-    }
-  });
+  const btnInstalar = document.getElementById('btnInstalar');
+  if(btnInstalar) {
+    btnInstalar.addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          document.getElementById('bannerInstalacion').style.display = 'none';
+        });
+      } else {
+        alert('Presiona los 3 puntos (⋮) y selecciona "Agregar a pantalla de inicio"');
+      }
+    });
+  }
 
   function hoyISO() {
     const hoy = new Date();
@@ -444,16 +449,6 @@
     gastosGNC = g ? JSON.parse(g) : [];
     gastosNafta = n ? JSON.parse(n) : [];
     
-    // si esta vacio agregamos algunos ejemplos demostrativos (opcional pero ayuda)
-    if(viajes.length === 0) {
-      viajes = [];
-    }
-    if(gastosGNC.length === 0) {
-      gastosGNC = [];
-    }
-    if(gastosNafta.length === 0) {
-      gastosNafta = [];
-    }
     guardarTodo();
   }
 
@@ -500,13 +495,33 @@
   }
 
   // ELIMINAR
-  function eliminarViaje(id) { if(confirm("Eliminar este viaje?")) { viajes = viajes.filter(v => v.id !== id); guardarTodo(); actualizarTodo(); } }
-  function eliminarGNC(id) { if(confirm("Eliminar gasto GNC?")) { gastosGNC = gastosGNC.filter(g => g.id !== id); guardarTodo(); actualizarTodo(); } }
-  function eliminarNafta(id) { if(confirm("Eliminar gasto NAFTA?")) { gastosNafta = gastosNafta.filter(n => n.id !== id); guardarTodo(); actualizarTodo(); } }
+  function eliminarViaje(id) { 
+    if(confirm("¿Eliminar este viaje?")) { 
+      viajes = viajes.filter(v => v.id != id); 
+      guardarTodo(); 
+      actualizarTodo(); 
+    } 
+  }
+  
+  function eliminarGNC(id) { 
+    if(confirm("¿Eliminar gasto GNC?")) { 
+      gastosGNC = gastosGNC.filter(g => g.id != id); 
+      guardarTodo(); 
+      actualizarTodo(); 
+    } 
+  }
+  
+  function eliminarNafta(id) { 
+    if(confirm("¿Eliminar gasto NAFTA?")) { 
+      gastosNafta = gastosNafta.filter(n => n.id != id); 
+      guardarTodo(); 
+      actualizarTodo(); 
+    } 
+  }
 
   // EDITAR
   function editarViaje(id) {
-    const viaje = viajes.find(v => v.id === id);
+    const viaje = viajes.find(v => v.id == id);
     if(!viaje) return;
     let nuevaFecha = prompt("Nueva fecha (YYYY-MM-DD):", viaje.fecha);
     if(!nuevaFecha) return;
@@ -521,7 +536,7 @@
   }
 
   function editarGNC(id) {
-    const gasto = gastosGNC.find(g => g.id === id);
+    const gasto = gastosGNC.find(g => g.id == id);
     if(!gasto) return;
     let nuevaFecha = prompt("Nueva fecha:", gasto.fecha);
     if(!nuevaFecha) return;
@@ -536,7 +551,7 @@
   }
 
   function editarNafta(id) {
-    const gasto = gastosNafta.find(n => n.id === id);
+    const gasto = gastosNafta.find(n => n.id == id);
     if(!gasto) return;
     let nuevaFecha = prompt("Nueva fecha:", gasto.fecha);
     if(!nuevaFecha) return;
@@ -564,6 +579,46 @@
     });
   }
 
+  // Función para asignar eventos a los botones (DELEGACIÓN DE EVENTOS)
+  function asignarEventosBotones() {
+    // Usamos event delegation en los tbody para evitar problemas con elementos dinámicos
+    document.getElementById('cuerpoViajes').addEventListener('click', function(e) {
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const id = btn.getAttribute('data-id');
+      const tipo = btn.getAttribute('data-tipo');
+      if(btn.classList.contains('btn-editar')) {
+        if(tipo === 'viaje') editarViaje(id);
+      } else if(btn.classList.contains('btn-eliminar')) {
+        if(tipo === 'viaje') eliminarViaje(id);
+      }
+    });
+    
+    document.getElementById('cuerpoGNC').addEventListener('click', function(e) {
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const id = btn.getAttribute('data-id');
+      const tipo = btn.getAttribute('data-tipo');
+      if(btn.classList.contains('btn-editar')) {
+        if(tipo === 'gnc') editarGNC(id);
+      } else if(btn.classList.contains('btn-eliminar')) {
+        if(tipo === 'gnc') eliminarGNC(id);
+      }
+    });
+    
+    document.getElementById('cuerpoNafta').addEventListener('click', function(e) {
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const id = btn.getAttribute('data-id');
+      const tipo = btn.getAttribute('data-tipo');
+      if(btn.classList.contains('btn-editar')) {
+        if(tipo === 'nafta') editarNafta(id);
+      } else if(btn.classList.contains('btn-eliminar')) {
+        if(tipo === 'nafta') eliminarNafta(id);
+      }
+    });
+  }
+
   function renderizarTablas() {
     const viajesF = filtrarPorMes(viajes);
     const gncF = filtrarPorMes(gastosGNC);
@@ -579,7 +634,7 @@
           <td>${v.fecha}</td>
           <td>${escapeHtml(v.origen)}</td>
           <td>$${v.monto.toFixed(2)}</td>
-          <td><button class="btn-editar" data-id="${v.id}" data-tipo="viaje">Editar</button> <button class="btn-eliminar" data-id="${v.id}" data-tipo="viaje">Eliminar</button></td>
+          <td><button class="btn-editar" data-id="${v.id}" data-tipo="viaje">✏️ Editar</button> <button class="btn-eliminar" data-id="${v.id}" data-tipo="viaje">🗑️ Eliminar</button></td>
         </tr>`;
       }
       cuerpoViajes.innerHTML = html;
@@ -595,7 +650,7 @@
           <td>${g.fecha}</td>
           <td>$${g.monto.toFixed(2)}</td>
           <td>${escapeHtml(g.nota)}</td>
-          <td><button class="btn-editar" data-id="${g.id}" data-tipo="gnc">Editar</button> <button class="btn-eliminar" data-id="${g.id}" data-tipo="gnc">Eliminar</button></td>
+          <td><button class="btn-editar" data-id="${g.id}" data-tipo="gnc">✏️ Editar</button> <button class="btn-eliminar" data-id="${g.id}" data-tipo="gnc">🗑️ Eliminar</button></td>
         </tr>`;
       }
       cuerpoGNC.innerHTML = html;
@@ -611,39 +666,11 @@
           <td>${n.fecha}</td>
           <td>$${n.monto.toFixed(2)}</td>
           <td>${escapeHtml(n.nota)}</td>
-          <td><button class="btn-editar" data-id="${n.id}" data-tipo="nafta">Editar</button> <button class="btn-eliminar" data-id="${n.id}" data-tipo="nafta">Eliminar</button></td>
+          <td><button class="btn-editar" data-id="${n.id}" data-tipo="nafta">✏️ Editar</button> <button class="btn-eliminar" data-id="${n.id}" data-tipo="nafta">🗑️ Eliminar</button></td>
         </tr>`;
       }
       cuerpoNafta.innerHTML = html;
     }
-
-    // event delegation para botones dinámicos
-    document.querySelectorAll("#cuerpoViajes .btn-editar, #cuerpoGNC .btn-editar, #cuerpoNafta .btn-editar").forEach(btn => {
-      btn.removeEventListener('click', handleEditar);
-      btn.addEventListener('click', handleEditar);
-    });
-    document.querySelectorAll("#cuerpoViajes .btn-eliminar, #cuerpoGNC .btn-eliminar, #cuerpoNafta .btn-eliminar").forEach(btn => {
-      btn.removeEventListener('click', handleEliminar);
-      btn.addEventListener('click', handleEliminar);
-    });
-  }
-
-  function handleEditar(e) {
-    const btn = e.currentTarget;
-    const id = btn.getAttribute('data-id');
-    const tipo = btn.getAttribute('data-tipo');
-    if(tipo === 'viaje') editarViaje(id);
-    else if(tipo === 'gnc') editarGNC(id);
-    else if(tipo === 'nafta') editarNafta(id);
-  }
-
-  function handleEliminar(e) {
-    const btn = e.currentTarget;
-    const id = btn.getAttribute('data-id');
-    const tipo = btn.getAttribute('data-tipo');
-    if(tipo === 'viaje') eliminarViaje(id);
-    else if(tipo === 'gnc') eliminarGNC(id);
-    else if(tipo === 'nafta') eliminarNafta(id);
   }
 
   function actualizarResumenes() {
@@ -774,21 +801,26 @@
   function init() {
     cargarDatos();
     if(!document.getElementById("fechaViaje").value) document.getElementById("fechaViaje").value = hoyISO();
-        document.getElementById("btnAgregarViaje").onclick = agregarViaje;
-        document.getElementById("btnAgregarGNC").onclick = agregarGNC;
-        document.getElementById("btnAgregarNafta").onclick = agregarNafta;
-        document.getElementById("selectorMes").onchange = (e) => { mesFiltro = e.target.value; actualizarTodo(); };
-        document.getElementById("btnMostrarTodo").onclick = () => { mesFiltro = "all"; document.getElementById("selectorMes").value = "all"; actualizarTodo(); };
-        document.getElementById("btnExportarCSV").onclick = exportarCSV;
-        document.getElementById("btnImportarCSV").onclick = () => document.getElementById("archivoCSV").click();
-        document.getElementById("archivoCSV").onchange = (e) => { if(e.target.files[0]) importarCSV(e.target.files[0]); };
+    document.getElementById("btnAgregarViaje").onclick = agregarViaje;
+    document.getElementById("btnAgregarGNC").onclick = agregarGNC;
+    document.getElementById("btnAgregarNafta").onclick = agregarNafta;
+    document.getElementById("selectorMes").onchange = (e) => { mesFiltro = e.target.value; actualizarTodo(); };
+    document.getElementById("btnMostrarTodo").onclick = () => { mesFiltro = "all"; document.getElementById("selectorMes").value = "all"; actualizarTodo(); };
+    document.getElementById("btnExportarCSV").onclick = exportarCSV;
+    document.getElementById("btnImportarCSV").onclick = () => document.getElementById("archivoCSV").click();
+    document.getElementById("archivoCSV").onchange = (e) => { if(e.target.files[0]) importarCSV(e.target.files[0]); };
+    
+    // Asignar eventos a los botones dinámicos usando delegación
+    asignarEventosBotones();
+    
     actualizarTodo();
   }
 
+  // REGISTRO DEL SERVICE WORKER PARA PWA
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js")
-      .then(() => console.log("✅ Service Worker registrado"))
-      .catch(err => console.error("❌ Error al registrar SW:", err));
+      .then(() => console.log("✅ Service Worker registrado correctamente"))
+      .catch(err => console.error("❌ Error al registrar Service Worker:", err));
   }
 
   init();
